@@ -67,7 +67,7 @@
 						</ul></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#">Profile</a></li>
+					<li><a href="./updateProfile">Profile</a></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false">View detail <span class="caret"></span></a>
