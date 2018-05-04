@@ -111,6 +111,61 @@ public class HelloController {
 		return "index1";
 	}
 	
-	
+	// @RequestMapping(value = "/updateProfile", method = RequestMethod.GET)
+		//
+		// private String updateProfile(User user, HttpSession sess){
+		//
+		// sess.setAttribute("user", user);
+		//
+		// return "updateProfile";
+		// }
+		// @RequestMapping(value = "/updateProfile", method = RequestMethod.POST)
+		//
+		// private String doUpdateProfile(User user, HttpSession sess){
+		//
+		// user.setId(((User) sess.getAttribute("user")).getId());
+		// try {
+		// dao.updateUser(user);
+		// } catch (SQLException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+		// try {
+		// user = dao.getUser(user.getEmail());
+		// } catch (ClassNotFoundException | SQLException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// return "redirect:index.html";
+		//
+		// }
+		// sess.setAttribute("user", user);
+		//
+		// return "redirect:pizzas:";
+		// }
+
+		@RequestMapping(value = "/updateProfile")
+
+		private String doUpdateProfile(Model model,User user,HttpSession sess) {
+			System.out.println(((User) sess.getAttribute("loggedUser")).getId());
+			user.setId(((User) sess.getAttribute("loggedUser")).getId());
+			try {
+				dao.updateUser(user);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				user = dao.getUser(user.getEmail());
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return "redirect:index.html";
+
+			}
+			model.addAttribute("user",user);
+			sess.setAttribute("loggedUser", user);
+
+			return "updateProfile";
+		}
 	
 }
