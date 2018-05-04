@@ -98,7 +98,7 @@ public class CartController {
 			User user = (User) request.getSession().getAttribute("loggedUser");
 			long addres_id = Long.parseLong(request.getParameter("chosenAddress"));
 			Order order = odao.getActiveOrderForUser(user);
-			Order.calculatePriceForCart(order.getProducts());
+			order.setPrice((float) Order.calculatePriceForCart(order.getProducts()));
 			order.setDelivered(true);
 			System.out.println(addres_id);
 			Address address = adao.getAddresById(addres_id);

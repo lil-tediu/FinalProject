@@ -73,7 +73,7 @@ public class HelloController {
 				} else {
 					dao.register(user);
 					HttpSession session = request.getSession();
-					session.setMaxInactiveInterval(6);
+					session.setMaxInactiveInterval(120);
 					session.setAttribute("loggedUser", user);
 					return "redirect:/drinks";
 
