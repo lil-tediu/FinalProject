@@ -1,0 +1,116 @@
+package com.dominos.controller;
+
+import java.sql.SQLException;
+import java.util.HashSet;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.dominos.model.address.Address;
+import com.dominos.model.address.AddressDao;
+import com.dominos.model.user.User;
+import com.dominos.model.user.UserDao;
+
+@Controller
+public class HelloController {
+	@Autowired
+	private UserDao dao;
+
+	@Autowired
+	private AddressDao ad;
+
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	public String hello(Model model, HttpServletRequest request) {
+		if (request.getSession(false) == null || request.getSession().getAttribute("loggedUser") == null) {
+			User user = new User();
+			model.addAttribute("user", user);
+			return "index";
+		}
+		
+		HttpSession session = request.getSession();
+		
+//		if (session.getAttribute("loggedUser")!=null) {
+//			session.invalidate();
+//		}
+		
+		return "indexLogged";
+	}
+
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String helloLogin(Model model) {
+		
+		User user = new User();
+		model.addAttribute("user", user);
+		return "index1";
+	}
+
+	@RequestMapping(value = "/index", method = RequestMethod.POST)
+	public String register( @ModelAttribute @Valid User user, BindingResult result,HttpServletRequest request) {
+		try {
+
+			if (result.hasFieldErrors()) {
+				// If not a valid user then add error
+				// else proceed to user welcome page
+
+				result.addError(new ObjectError("err", "Invalid input"));
+				return "index";
+
+			} else {
+				if (dao.existsUser(user.getEmail(), user.getPassword())) {
+					result.addError(new ObjectError("err", "User exist"));
+					System.out.println("In exust user");
+					return "index";
+				} else {
+					dao.register(user);
+					HttpSession session = request.getSession();
+					session.setMaxInactiveInterval(6);
+					session.setAttribute("loggedUser", user);
+					return "redirect:/drinks";
+
+				}
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		result.addError(new ObjectError("err", "Invalid input"));
+
+		return "index";
+	}
+
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String login(Model model, HttpServletRequest request, @ModelAttribute @Valid User user,
+			BindingResult result) {
+		try {
+
+			if (result.hasFieldErrors()) {
+				result.addError(new ObjectError("err", "Invalid input"));
+				return "index1";
+			}
+			if (dao.existsUser(user.getEmail(), user.getPassword())) {
+				user = dao.getUser(user.getEmail());
+				HttpSession session = request.getSession();
+				session.setMaxInactiveInterval(120);
+				session.setAttribute("loggedUser", user);
+				return "redirect:drinks";
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		result.addError(new ObjectError("err", "Invalid input"));
+		return "index1";
+	}
+	
+	
+	
+}

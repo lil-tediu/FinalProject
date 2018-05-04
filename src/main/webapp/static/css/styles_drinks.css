@@ -1,0 +1,15 @@
+.fanta_image {
+	  position: absolute;
+	  top: 25%;
+	  width:40%;
+	  height:50%;
+}
+
+.drink_template {
+	  position: absolute;
+	  left:40%;
+	  top: 25%;
+	  width:50%;
+	  height:50%;
+	  text-align:centered;
+}
