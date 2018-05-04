@@ -9,7 +9,7 @@ import com.dominos.model.user.User;
 
 public interface IOrderDAO {
 
-//	TreeSet<Order> getOrdersForUser(long user_id) throws ClassNotFoundException, SQLException;
+	TreeSet<Order> getOrdersForUser(long user_id) throws ClassNotFoundException, SQLException;
 
 	HashMap<Product, Integer> getProductsForOrder(long orderId) throws SQLException;
 

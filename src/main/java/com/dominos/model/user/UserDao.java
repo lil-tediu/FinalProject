@@ -191,10 +191,10 @@ public class UserDao implements IUserDAO {
 			u.setEmail(rs.getString(5));
 			u.setPictureUrl(rs.getString("picture_url"));
 
-//		//	TreeSet<Order> orders = od.getOrdersForUser(u.getId());
-//			HashSet<Address> addresses = ad.getAddressOfUser(u);
-//			u.setAddresses(addresses);
-//		    u.setOrders(orders);
+			TreeSet<Order> orders = od.getOrdersForUser(u.getId());
+			HashSet<Address> addresses = ad.getAddressOfUser(u);
+			u.setAddresses(addresses);
+		    u.setOrders(orders);
 			return u;
 		} finally {
 			if (rs != null) {

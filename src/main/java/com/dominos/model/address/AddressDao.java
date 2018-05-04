@@ -47,17 +47,17 @@ public class AddressDao {
 	private UserDao dao;
 
 	@Autowired
-	private DBConnection db = new DBConnection();
+	private DBConnection db;
 
-	private AddressDao() throws ClassNotFoundException, SQLException {
-		this.con = db.getConnection();
-	}
-	public static AddressDao getInstance() throws ClassNotFoundException, SQLException {
-		if (AddressDao.instance == null) {
-			AddressDao.instance = new AddressDao();
-		}
-		return instance;
-	}
+//	private AddressDao() throws ClassNotFoundException, SQLException {
+//		this.con = db.getConnection();
+//	}
+//	public static AddressDao getInstance() throws ClassNotFoundException, SQLException {
+//		if (AddressDao.instance == null) {
+//			AddressDao.instance = new AddressDao();
+//		}
+//		return instance;
+//	}
 
 	public HashSet<Address> getAddressOfUser(User u) throws ClassNotFoundException, SQLException {
 		// Connection con = DBconnection.getConnection();
@@ -140,7 +140,5 @@ public class AddressDao {
 			e.printStackTrace();
 		}
 		return address;
-		
-		
 	}
 }

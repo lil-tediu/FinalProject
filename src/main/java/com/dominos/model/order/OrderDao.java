@@ -52,50 +52,52 @@ public class OrderDao implements IOrderDAO {
 	/* (non-Javadoc)
 	 * @see com.dominos.model.db.IOrderDAO#getOrdersForUser(long)
 	 */
-//	@Override
-//	public TreeSet<Order> getOrdersForUser(long user_id) throws ClassNotFoundException, SQLException {
-//		Connection con = DBconnection.getConnection();
-//		ResultSet rs = null;
-//		
-//		try (PreparedStatement ps = con.prepareStatement(GET_ALL_USER_ORDERS);) {
-//			ps.setLong(1, user_id);
-//			rs = ps.executeQuery();
-//			
-//			TreeSet<Order> orders = new TreeSet<>(new Comparator<Order>() {
-//				@Override
-//				public int compare(Order o1, Order o2) {
-//					return o2.getDatetime().compareTo(o1.getDatetime());
-//				}
-//			});	
-//			Order order=null;
-//			while (rs.next()) {
-//		
-//			HashMap<Product, Integer> products = this.getProductsForOrder(rs.getLong("order_id"));
-//		    User user=userDao.getUserByID(user_id);
-//		    LocalDateTime date = rs.getTimestamp("date").toLocalDateTime();
-//			Address a = new Address();
-//			a.setAddress(rs.getString("a.address"));
-//			a.setUser(user);
-//		    order=new Order();
-//		    order.setId(rs.getLong("order_id"));
-//		    
-//		    order.setDatetime(date);
-//		    order.setUser(user);
-//		    order.setProducts(products);
-//		    order.setPrice(rs.getFloat("price"));
-//		    order.setAddres(a);
-//			order.setDelivered(rs.getBoolean("isDelivered"));
-//		    
-//		    
-//		    orders.add(order);
-//			}
-//		     return orders;
-//		} finally {
-//			if (rs != null) {
-//				rs.close();
-//			}
-//		}
-//	}
+	
+	
+	@Override
+	public TreeSet<Order> getOrdersForUser(long user_id) throws ClassNotFoundException, SQLException {
+		Connection con = DBconnection.getConnection();
+		ResultSet rs = null;
+		
+		try (PreparedStatement ps = con.prepareStatement(GET_ALL_USER_ORDERS);) {
+			ps.setLong(1, user_id);
+			rs = ps.executeQuery();
+			
+			TreeSet<Order> orders = new TreeSet<>(new Comparator<Order>() {
+				@Override
+				public int compare(Order o1, Order o2) {
+					return o2.getDatetime().compareTo(o1.getDatetime());
+				}
+			});	
+			Order order=null;
+			while (rs.next()) {
+		
+			HashMap<Product, Integer> products = this.getProductsForOrder(rs.getLong("order_id"));
+		   // User user=userDao.getUserByID(user_id);
+		    LocalDateTime date = rs.getTimestamp("date").toLocalDateTime();
+			Address a = new Address();
+			a.setAddress(rs.getString("a.address"));
+			//a.setUser(user);
+		    order=new Order();
+		    order.setId(rs.getLong("order_id"));
+		    
+		    order.setDatetime(date);
+		   // order.setUser(user);
+		    order.setProducts(products);
+		    order.setPrice(rs.getFloat("price"));
+		    order.setAddres(a);
+			order.setDelivered(rs.getBoolean("isDelivered"));
+		    
+		    
+		    orders.add(order);
+			}
+		     return orders;
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+		}
+	}
 	
 	/* (non-Javadoc)
 	 * @see com.dominos.model.db.IOrderDAO#getProductsForOrder(long)

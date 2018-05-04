@@ -144,7 +144,6 @@ public class HelloController {
 		// }
 
 		@RequestMapping(value = "/updateProfile")
-
 		private String doUpdateProfile(Model model,User user,HttpSession sess) {
 			System.out.println(((User) sess.getAttribute("loggedUser")).getId());
 			user.setId(((User) sess.getAttribute("loggedUser")).getId());
