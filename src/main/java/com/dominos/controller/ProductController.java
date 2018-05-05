@@ -36,10 +36,10 @@ public class ProductController {
 	public String allDrinks(Model model, HttpServletRequest request) {
 		if (request.getSession(false)==null || request.getSession().getAttribute("loggedUser")==null) {
 			try {
-				dao = ProductDAO.getInstance();
+			//	dao = ProductDAO.getInstance();
 				Set<Drink> drinks = dao.getAllDrinks();
 				model.addAttribute("drinks", drinks);
-			} catch (URLException | ProductException | ClassNotFoundException | SQLException e) {
+			} catch (URLException | ProductException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -47,7 +47,7 @@ public class ProductController {
 		}
 		
 		try {
-			dao = ProductDAO.getInstance();
+		//	dao = ProductDAO.getInstance();
 			Set<Drink> drinks = dao.getAllDrinks();
 			model.addAttribute("drinks", drinks);
 			User user = ((User) request.getSession().getAttribute("loggedUser"));
@@ -56,7 +56,7 @@ public class ProductController {
 			if (user.getOrders().isEmpty())
 				user.addOrder(order);
 			model.addAttribute("order", order);
-		} catch (SQLException | URLException | ProductException | ClassNotFoundException e) {
+		} catch (URLException | ProductException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -69,10 +69,10 @@ public class ProductController {
 	public String allPizzas(Model model, HttpServletRequest request) {
 		if (request.getSession(false)==null || request.getSession().getAttribute("loggedUser")==null) {
 			try {
-				dao = ProductDAO.getInstance();
+			//	dao = ProductDAO.getInstance();
 				Set<Pizza> pizzas = dao.getAllPizzas();
 				model.addAttribute("pizzas", pizzas);
-			} catch (URLException | ProductException | ClassNotFoundException | SQLException e) {
+			} catch (URLException | ProductException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -80,7 +80,7 @@ public class ProductController {
 		}
 		
 		try {
-			dao = ProductDAO.getInstance();
+		//	dao = ProductDAO.getInstance();
 			Set<Pizza> pizzas = dao.getAllPizzas();
 			model.addAttribute("pizzas", pizzas);
 			User user = ((User) request.getSession().getAttribute("loggedUser"));
@@ -88,7 +88,7 @@ public class ProductController {
 			order.setUser(user);
 			user.addOrder(order);
 			model.addAttribute("order", order);
-		} catch (SQLException | URLException | ProductException | ClassNotFoundException e) {
+		} catch (URLException | ProductException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -101,10 +101,10 @@ public class ProductController {
 	public String allSauces(Model model, HttpServletRequest request) {
 		if (request.getSession(false)==null || request.getSession().getAttribute("loggedUser")==null) {
 			try {
-				dao = ProductDAO.getInstance();
+				//dao = ProductDAO.getInstance();
 				Set<Sauce> sauces = dao.getAllSauces();
 				model.addAttribute("sauces", sauces);
-			} catch (URLException | ProductException | ClassNotFoundException | SQLException e) {
+			} catch (URLException | ProductException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -112,7 +112,7 @@ public class ProductController {
 		}
 		
 		try {
-			dao = ProductDAO.getInstance();
+			//dao = ProductDAO.getInstance();
 			Set<Sauce> sauces = dao.getAllSauces();
 			model.addAttribute("sauces", sauces);
 			User user = ((User) request.getSession().getAttribute("loggedUser"));
@@ -121,7 +121,7 @@ public class ProductController {
 			user.addOrder(order);
 			model.addAttribute("order", order);
 			
-		} catch (SQLException | URLException | ProductException | ClassNotFoundException e) {
+		} catch (URLException | ProductException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

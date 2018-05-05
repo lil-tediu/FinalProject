@@ -30,6 +30,8 @@ public class OrderDao implements IOrderDAO {
 	@Autowired
 	IUserDAO userDao;
 	
+	@Autowired
+	Connection con;
 
 	
 	private static final String INSERT_PRODUCT_IN_ORDER = "INSERT INTO order_has_product (product_id, order_id, quantity) \r\n" + 
@@ -56,7 +58,7 @@ public class OrderDao implements IOrderDAO {
 	
 	@Override
 	public TreeSet<Order> getOrdersForUser(long user_id) throws ClassNotFoundException, SQLException {
-		Connection con = DBconnection.getConnection();
+		//Connection con = DBconnection.getConnection();
 		ResultSet rs = null;
 		
 		try (PreparedStatement ps = con.prepareStatement(GET_ALL_USER_ORDERS);) {
@@ -104,7 +106,7 @@ public class OrderDao implements IOrderDAO {
 	 */
 	@Override
 	public HashMap<Product, Integer> getProductsForOrder(long orderId) throws SQLException {
-		Connection con = DBconnection.getConnection();
+	//	Connection con = DBconnection.getConnection();
 		ResultSet rs = null;
 		
 		try(PreparedStatement ps = con.prepareStatement(GET_PRODUCTS_OF_ORDER_BY_ID);){
@@ -131,7 +133,7 @@ public class OrderDao implements IOrderDAO {
 	 */
 	@Override
 	public void insertOrderForUser(Order order) throws SQLException {
-		Connection con = DBconnection.getConnection();
+		//Connection con = DBconnection.getConnection();
 		String query = INSERT_ORDER_FOR_USER;
 		ResultSet rs = null;
 
@@ -159,7 +161,7 @@ public class OrderDao implements IOrderDAO {
 	@Override
 	public void insertProductsFromOrder(long orderId, HashMap<Product, Integer> cart)
 			throws SQLException {
-		Connection con = DBconnection.getConnection();
+		//Connection con = DBconnection.getConnection();
 
 		for (Entry<Product, Integer> entry : cart.entrySet()) {
 			Product product = entry.getKey();

@@ -43,9 +43,12 @@ public class UserDao implements IUserDAO {
 	@Autowired 
 	private AddressDao ad;
 	
+	@Autowired
+	private Connection con;
+	
 	
 	public void insertAddressForUser(Address address) throws SQLException {
-		Connection con = db.getConnection();
+		//Connection con = db.getConnection();
 		
 		ResultSet rs = null;
 
@@ -67,7 +70,7 @@ public class UserDao implements IUserDAO {
 	}
 	
 	public  void register(User u) throws SQLException, ClassNotFoundException {
-		Connection con = db.getConnection();
+		//Connection con = db.getConnection();
 		ResultSet rs = null;
 		try (PreparedStatement ps = con.prepareStatement(REGISTER_USER_SQL, Statement.RETURN_GENERATED_KEYS);) {
 			ps.setString(1, u.getFirstName());
@@ -89,7 +92,7 @@ public class UserDao implements IUserDAO {
 	}
 
 	public  boolean existsUser(String e_mail, String password) throws SQLException, ClassNotFoundException {
-		Connection con = db.getConnection();
+		//Connection con = db.getConnection();
 		ResultSet rs = null;
 		try (PreparedStatement ps = con.prepareStatement(IS_USER_EXCIST);) {
 
@@ -118,7 +121,7 @@ public class UserDao implements IUserDAO {
 	// }
 
 	public  User getUser(String e_mail) throws SQLException, ClassNotFoundException {
-		Connection con = db.getConnection();
+	//	Connection con = db.getConnection();
 
 		ResultSet rs = null;
 		try (PreparedStatement ps = con.prepareStatement(GET_USER_BY_MAIL);) {
@@ -155,7 +158,7 @@ public class UserDao implements IUserDAO {
 	 */
 	@Override
 	public boolean updateUser(User user) throws SQLException {
-		Connection con = db.getConnection();
+		//Connection con = db.getConnection();
 
 		try (PreparedStatement stmt = con.prepareStatement(UPDATE_USER);) {
 			stmt.setString(1, user.getFirstName());
@@ -174,7 +177,7 @@ public class UserDao implements IUserDAO {
 	 */
 	@Override
 	public User getUserByID(long id) throws SQLException, ClassNotFoundException {
-		Connection con = db.getConnection();
+	//	Connection con = db.getConnection();
 
 		ResultSet rs = null;
 

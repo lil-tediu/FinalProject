@@ -46,19 +46,19 @@ public class ProductDAO {
 	private Connection connection;
 	
 	@Autowired
-	private DBConnection db = new DBConnection();
+	private DBConnection db;
 	
-	private ProductDAO() throws ClassNotFoundException, SQLException {
-		this.products = new HashSet<Product>();
-		this.connection = db.getConnection();
-	}
+//	public ProductDAO() throws ClassNotFoundException, SQLException {
+//		this.products = new HashSet<Product>();
+//		this.connection = db.getConnection();
+//	}
 
-	public static ProductDAO getInstance() throws ClassNotFoundException, SQLException {
-		if (ProductDAO.instance == null) {
-			ProductDAO.instance = new ProductDAO();
-		}
-		return instance;
-	}
+//	public static ProductDAO getInstance() throws ClassNotFoundException, SQLException {
+//		if (ProductDAO.instance == null) {
+//			ProductDAO.instance = new ProductDAO();
+//		}
+//		return instance;
+//	}
 
 	public Product getProductById(long id) throws ProductException, URLException {
 		// for (Product product : this.products) {
