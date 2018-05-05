@@ -148,6 +148,7 @@ public class CreatePizzaController {
 		} catch (ProductException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return "error";
 		}
 		return "productAddedToCart";
 	}

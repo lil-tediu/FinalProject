@@ -106,6 +106,7 @@ public class HelloController {
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return "error";
 		}
 		result.addError(new ObjectError("err", "Invalid input"));
 		return "index1";

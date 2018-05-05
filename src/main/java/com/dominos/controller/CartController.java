@@ -73,6 +73,7 @@ public class CartController {
 			} catch (ProductException | URLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				return "error";
 			}
 			return "cart";
 	}
@@ -89,6 +90,7 @@ public class CartController {
 			} catch (ClassNotFoundException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				return "error";
 			}
 			return "chooseAddress";
 	}
@@ -115,6 +117,7 @@ public class CartController {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				return "error";
 			}
 			return "addedSuccessfully";
 	}
@@ -141,6 +144,7 @@ public class CartController {
 			} catch (ClassNotFoundException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				return "error";
 			}
 			return "viewOrders";
 	}

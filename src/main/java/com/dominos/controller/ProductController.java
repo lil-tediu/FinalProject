@@ -160,6 +160,7 @@ public class ProductController {
 		} catch (URLException | ProductException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return "error";
 		}
 		// name of view deto shte gi pokazva
 		return "productAddedToCart";
@@ -189,7 +190,7 @@ public class ProductController {
 			model.addAttribute("order", order);
 		} catch (URLException | ProductException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return "error";
 		}
 		// name of view deto shte gi pokazva
 		return "productAddedToCart";
@@ -217,6 +218,7 @@ public class ProductController {
 		} catch (URLException | ProductException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return "error";
 		}
 		// name of view deto shte gi pokazva
 		return "productAddedToCart";

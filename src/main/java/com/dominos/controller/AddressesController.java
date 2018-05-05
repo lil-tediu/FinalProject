@@ -46,9 +46,11 @@ public class AddressesController {
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return "error";
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return "error";
 		}
 		model.addAttribute("addresses", addresses);
 		System.out.println(addresses.size());

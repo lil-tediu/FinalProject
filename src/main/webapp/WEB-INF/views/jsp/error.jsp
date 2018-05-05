@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<p> Neshto se sgovni, molq opitaite po-kusno!</p>
+	<p> Neshto se Precaka, molq opitaite po-kusno!</p>
 </body>
 </html>
