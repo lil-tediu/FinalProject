@@ -15,7 +15,7 @@ public class Order {
 	private User user;
 	private HashMap<Product, Integer> products;
 	private float price;
-	private Address addres;
+	private Address address;
 	private boolean isDelivered;
 	
 	
@@ -86,11 +86,11 @@ public class Order {
 	}
 
 	public Address getAddres() {
-		return addres;
+		return this.address;
 	}
 
-	public void setAddres(Address addres) {
-		this.addres = addres;
+	public void setAddres(Address address) {
+		this.address = address;
 	}
 
 	public boolean isDelivered() {

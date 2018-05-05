@@ -1,7 +1,10 @@
 package com.dominos.controller;
 
 import java.sql.SQLException;
+import java.util.Comparator;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -114,6 +117,32 @@ public class CartController {
 				e.printStackTrace();
 			}
 			return "addedSuccessfully";
+	}
+	
+	@RequestMapping(value = "/orders", method = RequestMethod.GET)
+	public String viewOrders(Model model, HttpServletRequest request) {
+		if (request.getSession(false)==null || request.getSession().getAttribute("loggedUser")==null) {
+			return "redirect:/index";
+		}
+			User user = (User) request.getSession().getAttribute("loggedUser");
+			try {
+				Set<Order> orders = odao.getOrdersForUser(user.getId());
+				Map<Order, String> ordersAndAddresses = new TreeMap<Order, String>(new Comparator<Order>() {
+					@Override
+					public int compare(Order o1, Order o2) {
+						return o2.getDatetime().compareTo(o1.getDatetime());
+					}
+				});
+				
+				for (Order order : orders) {
+					ordersAndAddresses.put(order, order.getAddres().getAddress());
+				}
+				model.addAttribute("ordersAndAddresses", ordersAndAddresses);
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return "viewOrders";
 	}
 	
 	

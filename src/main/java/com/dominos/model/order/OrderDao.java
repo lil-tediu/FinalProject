@@ -39,7 +39,7 @@ public class OrderDao implements IOrderDAO {
 
 	
 
-	private static final String GET_ALL_USER_ORDERS = "select o.order_id,o.date,a.address\r\n" + "from user u \r\n"
+	private static final String GET_ALL_USER_ORDERS = "select o.isDelivered, o.price, o.order_id,o.date,a.address\r\n" + "from user u \r\n"
 			+ "join orders o \r\n" + "on(u.user_id=o.user_id) \r\n" + "join address a\r\n"
 			+ "on(a.address_id=o.address_id)\r\n" + "where u.user_id=? \r\n" + "ORDER BY date";
 
