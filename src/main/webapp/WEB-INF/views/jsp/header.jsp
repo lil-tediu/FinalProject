@@ -73,7 +73,6 @@
 						aria-expanded="false">View detail <span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="./addresses">Add new address</a></li>
-							<li><a href="./viewaddresses">View Addresses</a></li>
 							<li><a href="./orders">View previous orders</a></li>
 							<li><a href="./cart">View Cart</a></li>
 							<!--    <li><a href="#">Something else here</a></li> -->

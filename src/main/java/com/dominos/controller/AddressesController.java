@@ -37,8 +37,16 @@ public class AddressesController {
 		if (request.getSession(false)==null || request.getSession().getAttribute("loggedUser")==null) {
 			 return "redirect:/index";
 		}
-		
-		
+
+//		try {
+//			ad = AddressDao.getInstance();
+//		} catch (ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		HashSet<Address> addresses = new HashSet<>();
 		try {
 			User u = (User)s.getAttribute("loggedUser");
@@ -46,11 +54,9 @@ public class AddressesController {
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return "error";
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return "error";
 		}
 		model.addAttribute("addresses", addresses);
 		System.out.println(addresses.size());
@@ -84,10 +90,30 @@ public class AddressesController {
 			 return "redirect:/index";
 		}
 		
-		String adr = readyAddress.getAddress();
+	//	String adr = readyAddress.getAddress();
 		User loggedUser = (User) s.getAttribute("loggedUser");
 		try {
-			readyAddress.setAddress(adr);
+			String addr = request.getParameter("address");
+			System.out.println(addr);
+			String city = request.getParameter("city");
+			System.out.println(city);
+			String state = request.getParameter("state");
+			System.out.println(state);
+			
+			String zip=request.getParameter("zip");
+			System.out.println(zip);
+			StringBuilder adr=new StringBuilder();
+			adr.append(addr);
+			adr.append(" ,");
+			adr.append(city);
+			adr.append(" ,");
+			adr.append(state);
+			adr.append(" ,");
+			adr.append(zip);
+			
+			System.out.println(adr.toString());
+			
+			readyAddress.setAddress(adr.toString());
 			readyAddress.setUser(loggedUser);
 			System.out.println("in post=user " + loggedUser);
 			ad.insertAddressForUser(readyAddress);

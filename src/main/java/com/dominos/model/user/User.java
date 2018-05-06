@@ -12,11 +12,11 @@ import com.dominos.model.order.Order;
 
 public class User {
 	private long id;
-	@Pattern(regexp="[A-Za-z]{1,128}", message="Ivalid input.")
+	@Pattern(regexp="[A-Za-z]{1,128}", message="Invalid input.")
 	private String firstName;
-	@Pattern(regexp="[A-Za-z]{1,128}", message="Ivalid input.")
+	@Pattern(regexp="[A-Za-z]{1,128}", message="Invalid input.")
 	private String lastName;
-	@Size(min=6,max=50 , message="Ivalid password. Length must be more than 6 characters.")
+	@Size(min=6,max=50 , message="Invalid password. Length must be more than 6 characters.")
 	private String password;
 	@Pattern(regexp = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message = "Please enter a valid email.")
 	private String email;
