@@ -1,27 +1,27 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <jsp:include page="header.jsp"></jsp:include>
   
-<html>
-<head>
+
  <meta name="viewport" content="width=device-width, initial-scale=1">
  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
  <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+
+
 <title>View addresses</title>
-</head>
-<body>
+
+
 
 <div class="w3-container">
 <h1 class="header" align="center" >Addresses</h1>
   <script>
 	document.getElementsByClassName("active")[0].setAttribute("class",
 			"not-active");
-	document.getElementsByTagName("LI")[2].setAttribute("class", "active");
+	document.getElementsByTagName("LI")[7].setAttribute("class", "active");
 </script>
 
 <c:if test="${empty addresses}">

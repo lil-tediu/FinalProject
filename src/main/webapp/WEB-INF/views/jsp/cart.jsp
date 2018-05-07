@@ -4,6 +4,13 @@
      <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <jsp:include page="header.jsp"></jsp:include>
+
+<script>
+	document.getElementsByClassName("active")[0].setAttribute("class",
+			"not-active");
+	document.getElementsByTagName("LI")[7].setAttribute("class", "active");
+</script>
+
 <h1 class="header" align="center">YOUR ORDER</h1>
 	
 	<c:choose>
@@ -19,7 +26,7 @@
 			<img src = "${entry.key.pictureUrl }" />
 			<p>Quantity: ${entry.value}</p>
 				<form method = "POST">
-				<input type="checkbox" name="chosen" value = "${entry.key.id}">Choose to remove
+				<input type="hidden" name="chosen" value = "${entry.key.id}">
 				<input class="button" type="submit" value="Remove"/>
 				</form>
 		</c:forEach>

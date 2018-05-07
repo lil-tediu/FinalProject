@@ -113,6 +113,12 @@ span.price {
 </head>
 <body>
 
+<script>
+	document.getElementsByClassName("active")[0].setAttribute("class",
+			"not-active");
+	document.getElementsByTagName("LI")[7].setAttribute("class", "active");
+</script>
+
 <div class="row">
   <div class="col-75">
     <div class="container">

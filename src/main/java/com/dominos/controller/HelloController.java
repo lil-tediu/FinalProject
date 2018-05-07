@@ -99,7 +99,7 @@ public class HelloController {
 			if (dao.existsUser(user.getEmail(), user.getPassword())) {
 				user = dao.getUser(user.getEmail());
 				// HttpSession session = request.getSession();
-				s.setMaxInactiveInterval(12000);
+				s.setMaxInactiveInterval(120);
 				s.setAttribute("loggedUser", user);
 				return "redirect:drinks";
 			}

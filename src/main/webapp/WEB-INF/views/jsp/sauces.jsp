@@ -39,7 +39,7 @@
 				<p class="price">Price: ${sauce.price}0 lv</p>
 				<div>
 				<form method = "POST">
-				<input type="checkbox" name="chosen" value = "${sauce.id}">Choose
+				<input type="hidden" name="chosen" value = "${sauce.id}">
 					<p class = "quantity"> Choose quantity: </p>
 					<input type="number" name="quantity" min="1" max="5"> 
 					 <input class="button" type="submit" value="Add to cart"/>
