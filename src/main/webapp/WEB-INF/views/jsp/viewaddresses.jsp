@@ -1,10 +1,13 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <jsp:include page="header.jsp"></jsp:include>
-    
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+  
 <html>
 <head>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -12,19 +15,28 @@
 </head>
 <body>
 
-
-<h1 class="header" align="center">Address</h1>
+<div class="w3-container">
+<h1 class="header" align="center" >Addresses</h1>
   <script>
 	document.getElementsByClassName("active")[0].setAttribute("class",
 			"not-active");
 	document.getElementsByTagName("LI")[2].setAttribute("class", "active");
 </script>
+
+<div class="w3-ul w3-card-4">
+
 <c:forEach items="${addresses}" var="address">
-	<h3>${address.address}</h3>
+<div class="w3-bar">
+      <img src="img/addrLogo.png" class="w3-bar-item w3-circle w3-hide-small" style="width:60px">
+      <div class="w3-bar-item">
+        <span class="w3-large">${address.address}</span><br>
+      </div>
+	
+</div>
 
 </c:forEach>
 
-<br>
-<br>
+</div>
+</div>
 </body>
 </html>
