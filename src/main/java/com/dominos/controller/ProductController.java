@@ -33,8 +33,8 @@ public class ProductController {
 	private OrderDao orderDao;
 	
 	@RequestMapping(value="/drinks",method = RequestMethod.GET)
-	public String allDrinks(Model model, HttpServletRequest request) {
-		if (request.getSession(false)==null || request.getSession().getAttribute("loggedUser")==null) {
+	public String allDrinks(Model model, HttpSession s) {
+		if (s==null || s.getAttribute("loggedUser")==null) {
 			try {
 			//	dao = ProductDAO.getInstance();
 				Set<Drink> drinks = dao.getAllDrinks();
@@ -50,7 +50,7 @@ public class ProductController {
 		//	dao = ProductDAO.getInstance();
 			Set<Drink> drinks = dao.getAllDrinks();
 			model.addAttribute("drinks", drinks);
-			User user = ((User) request.getSession().getAttribute("loggedUser"));
+			User user = ((User) s.getAttribute("loggedUser"));
 			Order order = orderDao.getActiveOrderForUser(user);
 			order.setUser(user);
 			if (user.getOrders().isEmpty())
@@ -66,8 +66,8 @@ public class ProductController {
 	
 	
 	@RequestMapping(value="/pizzas",method = RequestMethod.GET)
-	public String allPizzas(Model model, HttpServletRequest request) {
-		if (request.getSession(false)==null || request.getSession().getAttribute("loggedUser")==null) {
+	public String allPizzas(Model model, HttpSession s) {
+		if (s==null || s.getAttribute("loggedUser")==null) {
 			try {
 			//	dao = ProductDAO.getInstance();
 				Set<Pizza> pizzas = dao.getAllPizzas();
@@ -83,7 +83,7 @@ public class ProductController {
 		//	dao = ProductDAO.getInstance();
 			Set<Pizza> pizzas = dao.getAllPizzas();
 			model.addAttribute("pizzas", pizzas);
-			User user = ((User) request.getSession().getAttribute("loggedUser"));
+			User user = ((User) s.getAttribute("loggedUser"));
 			Order order = orderDao.getActiveOrderForUser(user);
 			order.setUser(user);
 			user.addOrder(order);
@@ -98,8 +98,8 @@ public class ProductController {
 	
 	
 	@RequestMapping(value="/sauces",method = RequestMethod.GET)
-	public String allSauces(Model model, HttpServletRequest request) {
-		if (request.getSession(false)==null || request.getSession().getAttribute("loggedUser")==null) {
+	public String allSauces(Model model, HttpSession s) {
+		if (s==null || s.getAttribute("loggedUser")==null) {
 			try {
 				//dao = ProductDAO.getInstance();
 				Set<Sauce> sauces = dao.getAllSauces();
@@ -115,7 +115,7 @@ public class ProductController {
 			//dao = ProductDAO.getInstance();
 			Set<Sauce> sauces = dao.getAllSauces();
 			model.addAttribute("sauces", sauces);
-			User user = ((User) request.getSession().getAttribute("loggedUser"));
+			User user = ((User) s.getAttribute("loggedUser"));
 			Order order = orderDao.getActiveOrderForUser(user);
 			order.setUser(user);
 			user.addOrder(order);
@@ -142,8 +142,8 @@ public class ProductController {
 	
 	
 	@RequestMapping(value="/pizzas",method = RequestMethod.POST)
-	public String allPizzasAdd(Model model, HttpServletRequest request) {
-		if (request.getSession(false)==null || request.getSession().getAttribute("loggedUser")==null) {
+	public String allPizzasAdd(Model model, HttpSession s,HttpServletRequest request) {
+		if (s==null || s.getAttribute("loggedUser")==null) {
 			return "redirect:/index";
 		}
 		
@@ -151,7 +151,7 @@ public class ProductController {
 			long productId = Long.parseLong(request.getParameter("chosen"));
 			int quantity = Integer.parseInt(request.getParameter("quantity"));
 			Product product = dao.getProductById(productId);
-			User user = ((User) request.getSession().getAttribute("loggedUser"));
+			User user = ((User) s.getAttribute("loggedUser"));
 			
 			Order order = orderDao.getActiveOrderForUser(user);
 			order.addProduct(product, quantity);
@@ -170,8 +170,8 @@ public class ProductController {
 	
 	//Ne trqbva da ima @ModelAttribute Order order kato atgument!!!!! Mnogo vajno
 	@RequestMapping(value="/drinks",method = RequestMethod.POST)
-	public String allDrinksAdd(Model model, HttpServletRequest request) {
-		if (request.getSession(false)==null || request.getSession().getAttribute("loggedUser")==null) {
+	public String allDrinksAdd(Model model, HttpSession s,HttpServletRequest request) {
+		if (s==null || s.getAttribute("loggedUser")==null) {
 			 return "redirect:/index";
 		}
 		
@@ -179,7 +179,7 @@ public class ProductController {
 //			if (order.getProducts().isEmpty()) { //ako poruchkata e prazna, toest e nova
 //				orderDao.insertOrderForUser(order);
 //			}
-			User user = ((User) request.getSession().getAttribute("loggedUser"));
+			User user = ((User) s.getAttribute("loggedUser"));
 			Order order = orderDao.getActiveOrderForUser(user);
 			long productId = Long.parseLong(request.getParameter("chosen"));
 			int quantity = Integer.parseInt(request.getParameter("quantity"));
@@ -197,8 +197,8 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value="/sauces",method = RequestMethod.POST)
-	public String allSaucesAdd(Model model, HttpServletRequest request) {
-		if (request.getSession(false)==null || request.getSession().getAttribute("loggedUser")==null) {
+	public String allSaucesAdd(Model model,HttpSession s, HttpServletRequest request) {
+		if (s==null || s.getAttribute("loggedUser")==null) {
 			 return "redirect:/index";
 		}
 		
@@ -206,7 +206,7 @@ public class ProductController {
 //			if (order.getProducts().isEmpty()) { //ako poruchkata e prazna, toest e nova
 //				orderDao.insertOrderForUser(order);
 //			}
-			User user = ((User) request.getSession().getAttribute("loggedUser"));
+			User user = ((User) s.getAttribute("loggedUser"));
 			Order order = orderDao.getActiveOrderForUser(user);
 			long productId = Long.parseLong(request.getParameter("chosen"));
 			int quantity = Integer.parseInt(request.getParameter("quantity"));
@@ -227,8 +227,9 @@ public class ProductController {
 
 	@RequestMapping(value="/logout",method = RequestMethod.GET)
 	public String logout(Model model, HttpServletRequest request) {
-			HttpSession session = request.getSession(false);
-			session.invalidate();
+//			HttpSession session = request.getSession(false);
+//			session.invalidate();
+		request.getSession().invalidate();
 			return "redirect:/index";
 		}
 }

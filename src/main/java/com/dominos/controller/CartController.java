@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,11 +42,11 @@ public class CartController {
 	private AddressDao adao;
 
 	@RequestMapping(value = "/cart", method = RequestMethod.GET)
-	public String productsInCart(Model model, HttpServletRequest request ) {
-		if (request.getSession(false)==null || request.getSession().getAttribute("loggedUser")==null) {
+	public String productsInCart(Model model, HttpSession s ) {
+		if (s==null || s.getAttribute("loggedUser")==null) {
 			return "redirect:/index";
 		}
-			User user = (User) request.getSession().getAttribute("loggedUser");
+			User user = (User) s.getAttribute("loggedUser");
 			Order order = odao.getActiveOrderForUser(user);
 			float price = (float) Order.calculatePriceForCart(order.getProducts());
 			model.addAttribute("order", order);
@@ -57,11 +58,11 @@ public class CartController {
 	
 	
 	@RequestMapping(value = "/cart", method = RequestMethod.POST)
-	public String removeProductFromCart(Model model, HttpServletRequest request) {
-		if (request.getSession(false)==null || request.getSession().getAttribute("loggedUser")==null) {
+	public String removeProductFromCart(Model model,HttpSession s,HttpServletRequest request) {
+		if (s==null ||s.getAttribute("loggedUser")==null) {
 			return "redirect:/index";
 		}
-			User user = (User) request.getSession().getAttribute("loggedUser");
+			User user = (User) s.getAttribute("loggedUser");
 			Order order = odao.getActiveOrderForUser(user);
 			long id = Long.parseLong(request.getParameter("chosen"));
 			try {
@@ -79,11 +80,11 @@ public class CartController {
 	}
 	
 	@RequestMapping(value = "/submitOrder", method = RequestMethod.GET)
-	public String submitOrder(Model model, HttpServletRequest request) {
-		if (request.getSession(false)==null || request.getSession().getAttribute("loggedUser")==null) {
+	public String submitOrder(Model model, HttpSession s) {
+		if (s==null || s.getAttribute("loggedUser")==null) {
 			return "redirect:/index";
 		}
-			User user = (User) request.getSession().getAttribute("loggedUser");
+			User user = (User)s.getAttribute("loggedUser");
 			try {
 				Set<Address> addresses = adao.getAddressOfUser(user);
 				model.addAttribute("adresses", addresses);
@@ -96,11 +97,11 @@ public class CartController {
 	}
 	
 	@RequestMapping(value = "/submitOrder", method = RequestMethod.POST)
-	public String submitAddressForOrder(Model model, HttpServletRequest request) {
-		if (request.getSession(false)==null || request.getSession().getAttribute("loggedUser")==null) {
+	public String submitAddressForOrder(Model model, HttpSession s,HttpServletRequest request) {
+		if (s==null || s.getAttribute("loggedUser")==null) {
 			return "redirect:/index";
 		}
-			User user = (User) request.getSession().getAttribute("loggedUser");
+			User user = (User) s.getAttribute("loggedUser");
 			long addres_id = Long.parseLong(request.getParameter("chosenAddress"));
 			Order order = odao.getActiveOrderForUser(user);
 			order.setPrice((float) Order.calculatePriceForCart(order.getProducts()));
@@ -123,11 +124,11 @@ public class CartController {
 	}
 	
 	@RequestMapping(value = "/orders", method = RequestMethod.GET)
-	public String viewOrders(Model model, HttpServletRequest request) {
-		if (request.getSession(false)==null || request.getSession().getAttribute("loggedUser")==null) {
+	public String viewOrders(Model model, HttpSession s) {
+		if (s==null || s.getAttribute("loggedUser")==null) {
 			return "redirect:/index";
 		}
-			User user = (User) request.getSession().getAttribute("loggedUser");
+			User user = (User) s.getAttribute("loggedUser");
 			try {
 				Set<Order> orders = odao.getOrdersForUser(user.getId());
 				Map<Order, String> ordersAndAddresses = new TreeMap<Order, String>(new Comparator<Order>() {

@@ -30,14 +30,14 @@ public class HelloController {
 	private AddressDao ad;
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String hello(Model model, HttpServletRequest request) {
-		if (request.getSession(false) == null || request.getSession().getAttribute("loggedUser") == null) {
+	public String hello(Model model, HttpSession s) {
+		if (s == null || s.getAttribute("loggedUser") == null) {
 			User user = new User();
 			model.addAttribute("user", user);
 			return "index";
 		}
 		
-		HttpSession session = request.getSession();
+//		HttpSession session = request.getSession();
 		
 //		if (session.getAttribute("loggedUser")!=null) {
 //			session.invalidate();
@@ -55,7 +55,7 @@ public class HelloController {
 	}
 
 	@RequestMapping(value = "/index", method = RequestMethod.POST)
-	public String register( @ModelAttribute @Valid User user, BindingResult result,HttpServletRequest request) {
+	public String register( @ModelAttribute @Valid User user, BindingResult result,HttpSession s) {
 		try {
 
 			if (result.hasFieldErrors()) {
@@ -72,9 +72,9 @@ public class HelloController {
 					return "index";
 				} else {
 					dao.register(user);
-					HttpSession session = request.getSession();
-					session.setMaxInactiveInterval(120);
-					session.setAttribute("loggedUser", user);
+					//HttpSession session = request.getSession();
+					s.setMaxInactiveInterval(120);
+					s.setAttribute("loggedUser", user);
 					return "redirect:/drinks";
 
 				}
@@ -88,7 +88,7 @@ public class HelloController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(Model model, HttpServletRequest request, @ModelAttribute @Valid User user,
+	public String login(Model model, HttpSession s, @ModelAttribute @Valid User user,
 			BindingResult result) {
 		try {
 
@@ -98,9 +98,9 @@ public class HelloController {
 			}
 			if (dao.existsUser(user.getEmail(), user.getPassword())) {
 				user = dao.getUser(user.getEmail());
-				HttpSession session = request.getSession();
-				session.setMaxInactiveInterval(120);
-				session.setAttribute("loggedUser", user);
+				//HttpSession session = request.getSession();
+				s.setMaxInactiveInterval(12000);
+				s.setAttribute("loggedUser", user);
 				return "redirect:drinks";
 			}
 		} catch (ClassNotFoundException | SQLException e) {

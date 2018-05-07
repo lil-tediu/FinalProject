@@ -33,8 +33,8 @@ public class AddressesController {
 	private AddressDao ad;
 
 	@RequestMapping(value = "/viewaddresses", method = RequestMethod.GET)
-	public String allAddress(Model model, HttpSession s, HttpServletRequest request) {
-		if (request.getSession(false)==null || request.getSession().getAttribute("loggedUser")==null) {
+	public String allAddress(Model model, HttpSession s) {
+		if (s==null || s.getAttribute("loggedUser")==null) {
 			 return "redirect:/index";
 		}
 
@@ -67,8 +67,8 @@ public class AddressesController {
 	}
 
 	@RequestMapping(value = "/addresses", method = RequestMethod.GET)
-	public String addAddress(Model model,  HttpSession s, HttpServletRequest request) {
-		if (request.getSession(false)==null || request.getSession().getAttribute("loggedUser")==null) {
+	public String addAddress(Model model,  HttpSession s) {
+		if (s==null || s.getAttribute("loggedUser")==null) {
 			 return "redirect:/index";
 		}
 
@@ -85,8 +85,8 @@ public class AddressesController {
 	}
 
 	@RequestMapping(value = "/addresses", method = RequestMethod.POST)
-	public String saveAddress(@ModelAttribute Address readyAddress,HttpSession s, HttpServletRequest request) {
-		if (request.getSession(false)==null || request.getSession().getAttribute("loggedUser")==null) {
+	public String saveAddress(@ModelAttribute Address readyAddress,HttpSession s,HttpServletRequest request) {
+		if (s==null || s.getAttribute("loggedUser")==null) {
 			 return "redirect:/index";
 		}
 		

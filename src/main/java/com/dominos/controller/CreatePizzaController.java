@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,8 +42,8 @@ public class CreatePizzaController {
 	private OrderDao odao;
 	
 	@RequestMapping(value="/create",method = RequestMethod.GET)
-	public String createPiiza(Model model, HttpServletRequest request) throws URLException {
-		if (request.getSession(false)==null || request.getSession().getAttribute("loggedUser")==null) {
+	public String createPiiza(Model model, HttpSession ses) throws URLException {
+		if (ses==null || ses.getAttribute("loggedUser")==null) {
 			return "redirect:/index";
 		}
 		Set<String> cheese = new HashSet<String>();
@@ -133,11 +134,11 @@ public class CreatePizzaController {
 	
 
 	@RequestMapping(value="/added",method = RequestMethod.POST)
-	public String addPizza(Model model, HttpServletRequest request) throws URLException {
-		if (request.getSession(false)==null || request.getSession().getAttribute("loggedUser")==null) {
+	public String addPizza(Model model,HttpSession s ,HttpServletRequest request) throws URLException {
+		if (s==null || s.getAttribute("loggedUser")==null) {
 			return "redirect:/index";
 		}
-		User user = (User) request.getSession().getAttribute("loggedUser");
+		User user = (User) s.getAttribute("loggedUser");
 		Order order = odao.getActiveOrderForUser(user);
 		long id = Long.parseLong(request.getParameter("id"));
 		try {
