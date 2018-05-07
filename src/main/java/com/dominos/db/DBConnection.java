@@ -17,7 +17,7 @@ public class DBConnection {
 	private static final String DB_HOST = "localhost";
 	private static final String DB_SCHEMA = "dominos";
 	private static final String DB_USER = "root";
-	private static final String DB_PASS = "1914";
+	private static final String DB_PASS = "300kilometra";
 	
 	
 	//private static DBConnection instance = null;

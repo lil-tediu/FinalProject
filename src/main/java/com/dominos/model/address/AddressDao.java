@@ -26,8 +26,8 @@ import com.dominos.model.user.UserDao;
 @Component
 public class AddressDao {
 
-	private static final String GET_ALL_ADDRESSES_OF_USER = "select * from " + "address a\r\n"
-			+ "join user u\r\n" + "on (a.user_id=u.user_id) where u.user_id=?";
+	private static final String GET_ALL_ADDRESSES_OF_USER = "select * from " + "address a\r\n" + "join user u\r\n"
+			+ "on (a.user_id=u.user_id) where u.user_id=?";
 
 	private static final String GET_ADDRESS_OF_ORDER = "select a.address from orders o\r\n" + "join address a\r\n"
 			+ "on (a.address_id=o.address_id) where o.order_id=?";
@@ -35,29 +35,31 @@ public class AddressDao {
 	private static final String INSERT_ADDRESS_FOR_USER = "INSERT INTO address (address,user_id) \r\n"
 			+ "VALUES (?,?);";
 	// insert address for user
-	
-	
+
 	private static final String GET_ADDRESS_BY_ID = "SELECT * FROM dominos.address where address_id = ?;";
-	private static AddressDao instance = null;
+
+	private static final String DELETE_ADDRESS = "DELETE FROM address where user_id=? AND address_id=?";
+	// private static AddressDao instance = null;
 
 	@Autowired
 	private Connection con;
-	
+
 	@Autowired
 	private UserDao dao;
 
 	@Autowired
 	private DBConnection db;
 
-//	private AddressDao() throws ClassNotFoundException, SQLException {
-//		this.con = db.getConnection();
-//	}
-//	public static AddressDao getInstance() throws ClassNotFoundException, SQLException {
-//		if (AddressDao.instance == null) {
-//			AddressDao.instance = new AddressDao();
-//		}
-//		return instance;
-//	}
+	// private AddressDao() throws ClassNotFoundException, SQLException {
+	// this.con = db.getConnection();
+	// }
+	// public static AddressDao getInstance() throws ClassNotFoundException,
+	// SQLException {
+	// if (AddressDao.instance == null) {
+	// AddressDao.instance = new AddressDao();
+	// }
+	// return instance;
+	// }
 
 	public HashSet<Address> getAddressOfUser(User u) throws ClassNotFoundException, SQLException {
 		// Connection con = DBconnection.getConnection();
@@ -119,26 +121,41 @@ public class AddressDao {
 			}
 		}
 	}
+
 	public Address getAddresById(long id) {
 		Address address = new Address();
 		try {
-			PreparedStatement ps =  con.prepareStatement(GET_ADDRESS_BY_ID);
+			PreparedStatement ps = con.prepareStatement(GET_ADDRESS_BY_ID);
 			ps.setLong(1, id);
 			ResultSet rs = ps.executeQuery();
 			rs.next();
 			long address_id = rs.getLong(1);
 			String address1 = rs.getString(2);
 			long user_id = rs.getLong(3);
-			
+
 			address.setAddress(address1);
 			address.setUser(dao.getUserByID(user_id));
 			address.setAddress_id(address_id);
 			return address;
-			
+
 		} catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return address;
 	}
+
+	public void deleteAddress(long userId, long addressId) {
+		try {
+			PreparedStatement ps = con.prepareStatement(DELETE_ADDRESS);
+			ps.setLong(1, userId);
+			ps.setLong(2, addressId);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+		}
+
+	}
+
 }
