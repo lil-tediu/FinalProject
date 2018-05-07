@@ -115,7 +115,7 @@ public class AddressesController {
 			
 			readyAddress.setAddress(adr.toString());
 			readyAddress.setUser(loggedUser);
-			System.out.println("in post=user " + loggedUser);
+		//	System.out.println("in post=user " + loggedUser);
 			ad.insertAddressForUser(readyAddress);
 		} catch (SQLException e) {
 
@@ -124,6 +124,6 @@ public class AddressesController {
 			return "redirect:index.html";
 
 		}
-		return "redirect:pizzas";
+		return "addedAddressSuccesfully";
 	}
 }

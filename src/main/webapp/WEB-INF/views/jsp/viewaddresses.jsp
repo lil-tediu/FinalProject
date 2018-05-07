@@ -10,6 +10,7 @@
  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <title>View addresses</title>
 </head>
@@ -23,7 +24,13 @@
 	document.getElementsByTagName("LI")[2].setAttribute("class", "active");
 </script>
 
+<c:if test="${empty addresses}">
+   <h4>There are no addresses yet</h4>
+</c:if>
+
 <div class="w3-ul w3-card-4">
+
+
 
 <c:forEach items="${addresses}" var="address">
 <div class="w3-bar">
