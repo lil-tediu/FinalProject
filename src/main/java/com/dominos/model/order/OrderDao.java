@@ -18,6 +18,8 @@ import org.springframework.stereotype.Component;
 
 import com.dominos.db.DBConnection;
 import com.dominos.model.address.Address;
+import com.dominos.model.address.IAddressDAO;
+import com.dominos.model.exceptions.AddressException;
 import com.dominos.model.products.Product;
 import com.dominos.model.user.IUserDAO;
 import com.dominos.model.user.User;
@@ -30,10 +32,14 @@ public class OrderDao implements IOrderDAO {
 
 	@Autowired
 	IUserDAO userDao;
+	
+	@Autowired
+	IAddressDAO addressDao;
 
 	@Autowired
 	Connection con;
 
+	private static final String GET_ORDER_BY_ID = "SELECT * FROM orders WHERE order_id = ?;";
 	private static final String INSERT_PRODUCT_IN_ORDER = "INSERT INTO order_has_product (product_id, order_id, quantity) \r\n"
 			+ "VALUES (?,?,?);";
 	private static final String INSERT_ORDER_FOR_USER = "INSERT INTO orders ( user_id, date , price, address_id,isDelivered) "
@@ -234,6 +240,27 @@ public class OrderDao implements IOrderDAO {
 			}
 		}
 
+	}
+
+	@Override
+	public Order getOrderById(long id) throws SQLException, ClassNotFoundException, AddressException {
+		ResultSet rs = null;
+		try (PreparedStatement ps = con.prepareStatement(GET_ORDER_BY_ID)) {
+			ps.setLong(1, id);
+			rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				Order order = new Order();
+				order.setId(rs.getLong(1));
+				order.setDatetime((rs.getTimestamp((2)).toLocalDateTime()));
+				order.setUser(userDao.getUserByID(rs.getLong(3)));
+				order.setAddres(addressDao.getAddresById(rs.getLong(4)));
+				order.setPrice(rs.getFloat(5));
+				order.setDelivered(true);
+				return order;
+			}
+		}   
+		throw new AddressException();
 	}
 
 }

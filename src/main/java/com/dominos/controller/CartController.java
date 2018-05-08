@@ -12,11 +12,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.dominos.model.address.Address;
 import com.dominos.model.address.IAddressDAO;
+import com.dominos.model.exceptions.AddressException;
 import com.dominos.model.exceptions.ProductException;
 import com.dominos.model.exceptions.URLException;
 import com.dominos.model.order.Order;
@@ -148,6 +150,42 @@ public class CartController {
 				return "error";
 			}
 			return "viewOrders";
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "orders/{id}")
+	public String viewMovie(Model model, @PathVariable Long id, HttpSession s ) {
+		System.out.println(id);
+		if (s==null || s.getAttribute("loggedUser")==null) {
+			return "redirect:/index";
+		} 
+			User user = (User) s.getAttribute("loggedUser");
+			long userId = user.getId();
+			
+			try {
+				if (isValidOrder(id,userId )) {
+					Order order = odao.getOrderById(id);
+					order.setProducts(odao.getProductsForOrder(order.getId()));
+					model.addAttribute(order);
+					return "order";
+				}
+			} catch (ClassNotFoundException | SQLException | AddressException e) {
+				e.printStackTrace();
+				return "error";
+			}
+		return "index";
+	}
+
+
+
+
+	private boolean isValidOrder(long id, long userId) throws ClassNotFoundException, SQLException {
+			Set<Order> orders = odao.getOrdersForUser(userId);
+			for (Order order : orders ) {
+				if (order.getId() == id) {
+					return true;
+				}
+			} 			
+			return false;
 	}
 	
 	
