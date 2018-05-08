@@ -141,15 +141,21 @@ public class CreatePizzaController {
 		User user = (User) s.getAttribute("loggedUser");
 		Order order = odao.getActiveOrderForUser(user);
 		long id = Long.parseLong(request.getParameter("id"));
+		int quantity = Integer.parseInt(request.getParameter("quantity"));
 		try {
 			Product product = dao.getProductById(id);
-			order.addProduct(product, 1);
+			order.addProduct(product, quantity);
 			model.addAttribute("order", order);
 			model.addAttribute("user", user);
+			
 		} catch (ProductException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return "error";
+		}
+		catch (NumberFormatException e) {
+			e.printStackTrace();
+			return "create";
 		}
 		return "redirect:cart";
 	}
