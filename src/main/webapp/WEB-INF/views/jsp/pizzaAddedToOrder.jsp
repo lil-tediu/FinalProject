@@ -10,8 +10,31 @@
 	document.getElementsByClassName("active")[0].setAttribute("class", "not-active");
 	document.getElementsByTagName("LI")[1].setAttribute("class", "active");
 </script>
+<style>
+div.a {
+    border: 1px solid gray;
+    padding: 8px;
+    text-align: center;
+    
+}
 
-<h3>You created a pizza</h3>
+h1.b {
+    text-align: center;
+    text-transform: uppercase;
+    color: #4CAF50;
+    
+}
+
+p {
+    text-indent: 50px;
+    text-align: center;
+    letter-spacing: 3px;
+}
+
+</style>
+
+<div class="a">
+<h1 class="b">You created a pizza</h1>
 <h3>Your pizza is with: </h3>
 <c:forEach items="${stringSupplements}" var="suplement">
 	<p>${suplement}</p>
@@ -22,13 +45,13 @@
 <p>${newPizza.stringDough}</p>
 <h3>Your pizza is with pizza sauce: </h3>
 <p>${newPizza.stringPizzaSauce}</p>
-<p>${newPizza.price}</p>
+<h3>Total price: ${newPizza.price}</h3>
 <form method ="post"  action="added">
 <input type = "hidden" name="id" value="${newPizza.id }">
-<input type = "submit" value = "Add to cart"/>
+<input type = "submit"   value = "Add to cart"/>
 </form>
 
 
-
+</div>
 </body>
 </html>

@@ -4,7 +4,12 @@
      <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <jsp:include page="header.jsp"></jsp:include>
-
+<style>
+img {
+    max-width: 100%;
+    height: auto;
+}
+</style>
 <script>
 	document.getElementsByClassName("active")[0].setAttribute("class",
 			"not-active");
@@ -22,6 +27,8 @@
 			</c:forEach>
 			<p>Price: ${entry.key.price}</p>
 			<p>Address: ${entry.value }
+			<br>
+			<br>
 		</c:forEach>
 		</p>
 
