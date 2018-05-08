@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.TreeSet;
 
+import com.dominos.model.exceptions.AddressException;
 import com.dominos.model.products.Product;
 import com.dominos.model.user.User;
 
@@ -17,6 +18,8 @@ public interface IOrderDAO {
 
 	void insertProductsFromOrder(long orderId, HashMap<Product, Integer> cart) throws SQLException;
 
-
 	Order getActiveOrderForUser(User user) throws SQLException;
+	
+	Order getOrderById(long id) throws SQLException, ClassNotFoundException, AddressException;
+	
 }
