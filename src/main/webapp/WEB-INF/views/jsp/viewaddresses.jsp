@@ -21,8 +21,11 @@
   <script>
 	document.getElementsByClassName("active")[0].setAttribute("class",
 			"not-active");
-	document.getElementsByTagName("LI")[2].setAttribute("class", "active");
+	document.getElementsByTagName("LI")[7].setAttribute("class", "active");
 </script>
+
+
+
 
 <c:if test="${empty addresses}">
    <h4>There are no addresses yet</h4>

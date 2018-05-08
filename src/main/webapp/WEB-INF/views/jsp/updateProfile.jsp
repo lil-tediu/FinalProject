@@ -15,11 +15,6 @@
 	background-color: red;
 }
 
-body {
-	font-family: Arial;
-	font-size: 17px;
-	padding: 8px;
-}
 
 * {
 	box-sizing: border-box;
