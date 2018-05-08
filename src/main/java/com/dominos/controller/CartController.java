@@ -139,7 +139,7 @@ public class CartController {
 				});
 				
 				for (Order order : orders) {
-					ordersAndAddresses.put(order, order.getAddres().getAddress());
+						ordersAndAddresses.put(order, order.getAddres().getAddress());
 				}
 				model.addAttribute("ordersAndAddresses", ordersAndAddresses);
 			} catch (ClassNotFoundException | SQLException e) {

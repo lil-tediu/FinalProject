@@ -53,8 +53,7 @@ public class ProductController {
 			User user = ((User) s.getAttribute("loggedUser"));
 			Order order = orderDao.getActiveOrderForUser(user);
 			order.setUser(user);
-			if (user.getOrders().isEmpty())
-				user.addOrder(order);
+			user.addOrder(order);
 			model.addAttribute("order", order);
 		} catch (URLException | ProductException e) {
 			// TODO Auto-generated catch block
@@ -237,7 +236,7 @@ public class ProductController {
 			return "redirect:sauces";
 		}
 		// name of view deto shte gi pokazva
-		return "redirect:cart";
+		return "cart";
 	}
 	
 
