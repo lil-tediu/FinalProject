@@ -42,7 +42,7 @@
 				<form method = "POST">
 				<input type="hidden" name="chosen" value = "${pizza.id}">
 					<p class = "quantity"> Choose quantity: </p>
-					<input type="number" name="quantity" min="1" max="5"> 
+					<input type="number" name="quantity" min="1" max="5" required /> 
 					 <input class="button" type="submit" value="Add to cart"/>
 				</form>
 				</div>
