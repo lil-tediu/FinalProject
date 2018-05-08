@@ -45,15 +45,15 @@ p {
 <p>${newPizza.stringDough}</p>
 <h3>Your pizza is with pizza sauce: </h3>
 <p>${newPizza.stringPizzaSauce}</p>
-<h3>Total price: ${newPizza.price}</h3>
+<h3>Total price for one: ${newPizza.price}</h3>
 <form method ="post"  action="added">
 
-<input type = "hidden" name="id" value="${newPizza.id }">
-<input type = "submit"   value = "Add to cart"/>
 
-	Choose quantity: <br>
+	<h3>Choose quantity:</h3> <br>
 <input type="number" name="quantity" min="1" max="10" required/> 
+<br>
 <input type = "hidden" name="id" value="${newPizza.id}">
+<br>
 <input type = "submit" value = "Add to cart"/>
 
 </form>
