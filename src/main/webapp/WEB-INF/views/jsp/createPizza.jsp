@@ -3,6 +3,7 @@
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>    
 <jsp:include page="header.jsp"></jsp:include>
 
+
 <script> 
 	document.getElementsByClassName("active")[0].setAttribute("class", "not-active");
 	document.getElementsByTagName("LI")[1].setAttribute("class", "active");
