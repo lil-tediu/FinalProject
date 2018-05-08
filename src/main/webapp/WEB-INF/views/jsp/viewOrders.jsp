@@ -23,7 +23,11 @@
 			<div align = "center">
 				<p>Price: ${entry.key.price}</p>
 				<p>Date : ${entry.key.datetime }</p>
-				<p>Address: ${entry.value }
+				<p>Address: ${entry.value }</p>
+				<form> 
+				</form>
+				<br>
+				<br>
 			</div>
 		</c:forEach>
 </body>
