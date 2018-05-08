@@ -19,7 +19,9 @@ import com.dominos.model.address.Address;
 import com.dominos.model.address.AddressDao;
 import com.dominos.model.exceptions.ProductException;
 import com.dominos.model.exceptions.URLException;
+import com.dominos.model.order.Order;
 import com.dominos.model.products.Drink;
+import com.dominos.model.products.Product;
 import com.dominos.model.products.ProductDAO;
 import com.dominos.model.user.User;
 import com.dominos.model.user.UserDao;
@@ -66,6 +68,18 @@ public class AddressesController {
 		return "viewaddresses";
 	}
 
+	@RequestMapping(value = "viewaddresses", method = RequestMethod.POST)
+	public String removeAddress(Model model,HttpSession s,HttpServletRequest request) {
+		if (s==null ||s.getAttribute("loggedUser")==null) {
+			return "redirect:/index";
+		}
+			User user = (User) s.getAttribute("loggedUser");
+			long id = Long.parseLong(request.getParameter("chosen"));
+			ad.deleteAddress(user.getId(), id);
+			//add successfully removed
+			return "addresses";
+	}
+	
 	@RequestMapping(value = "/addresses", method = RequestMethod.GET)
 	public String addAddress(Model model,  HttpSession s) {
 		if (s==null || s.getAttribute("loggedUser")==null) {
