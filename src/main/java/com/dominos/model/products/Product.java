@@ -1,6 +1,7 @@
 package com.dominos.model.products;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 import com.dominos.model.exceptions.URLException;
 
@@ -101,4 +102,5 @@ public class Product {
 			return false;
 		return true;
 	}
+	
 }

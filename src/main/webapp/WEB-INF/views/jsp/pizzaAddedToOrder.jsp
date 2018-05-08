@@ -47,8 +47,15 @@ p {
 <p>${newPizza.stringPizzaSauce}</p>
 <h3>Total price: ${newPizza.price}</h3>
 <form method ="post"  action="added">
+
 <input type = "hidden" name="id" value="${newPizza.id }">
 <input type = "submit"   value = "Add to cart"/>
+
+	Choose quantity: <br>
+<input type="number" name="quantity" min="1" max="10" required/> 
+<input type = "hidden" name="id" value="${newPizza.id}">
+<input type = "submit" value = "Add to cart"/>
+
 </form>
 
 
