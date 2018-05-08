@@ -31,7 +31,7 @@
 	<c:forEach items="${adresses}" var="address" > 
 		<div class="product">
 				<form method = "POST">
-				<input type="radio" name="chosenAddress" value = "${address.address_id}">${address.address}
+				<input type="hidden" name="chosenAddress" value = "${address.address_id}">${address.address}
 					 <input type="submit" value="Choose address"/>
 				</form>
 		</div>

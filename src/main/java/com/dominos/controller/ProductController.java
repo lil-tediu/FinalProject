@@ -155,7 +155,8 @@ public class ProductController {
 			
 			Order order = orderDao.getActiveOrderForUser(user);
 			order.addProduct(product, quantity);
-			model.addAttribute("user", user);
+			float price = (float) Order.calculatePriceForCart(order.getProducts());
+			model.addAttribute("price", price);
 			model.addAttribute("order", order);
 		} catch (URLException | ProductException e) {
 			// TODO Auto-generated catch block
@@ -166,7 +167,7 @@ public class ProductController {
 			return "redirect:pizzas";
 		}
 		// name of view deto shte gi pokazva
-		return "productAddedToCart";
+		return "redirect:cart";
 	}
 	
 	
@@ -189,7 +190,8 @@ public class ProductController {
 			Product product = dao.getProductById(productId);
 			order.addProduct(product, quantity);
 	
-			model.addAttribute("user", user);
+			float price = (float) Order.calculatePriceForCart(order.getProducts());
+			model.addAttribute("price", price);
 			model.addAttribute("order", order);
 		} catch (URLException | ProductException e) {
 			// TODO Auto-generated catch block
@@ -199,7 +201,7 @@ public class ProductController {
 			return "redirect:drinks";
 		}
 		// name of view deto shte gi pokazva
-		return "productAddedToCart";
+		return "redirect:cart";
 	}
 	
 	@RequestMapping(value="/sauces",method = RequestMethod.POST)
@@ -220,8 +222,11 @@ public class ProductController {
 			int quantity = Integer.parseInt(request.getParameter("quantity"));
 			Product product = dao.getProductById(productId);
 			order.addProduct(product, quantity);
+			
 	
-			model.addAttribute("user", user);
+		//	model.addAttribute("user", user);
+			float price = (float) Order.calculatePriceForCart(order.getProducts());
+			model.addAttribute("price", price);
 			model.addAttribute("order", order);
 		} catch (URLException | ProductException e) {
 			// TODO Auto-generated catch block
@@ -232,7 +237,7 @@ public class ProductController {
 			return "redirect:sauces";
 		}
 		// name of view deto shte gi pokazva
-		return "productAddedToCart";
+		return "redirect:cart";
 	}
 	
 

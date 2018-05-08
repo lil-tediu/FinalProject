@@ -3,6 +3,8 @@
         <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
      <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+  <link rel="stylesheet" href="css/style_Cart.css">
+  
 <jsp:include page="header.jsp"></jsp:include>
 
 <script>
@@ -11,7 +13,8 @@
 	document.getElementsByTagName("LI")[7].setAttribute("class", "active");
 </script>
 
-<h1 class="header" align="center">YOUR ORDER</h1>
+<h1 class="header" align="center">YOUR ORDER SO FAR</h1>
+<h2 class = "header" align = "center">Price so far: ${price}0 lv</h2>
 	
 	<c:choose>
     <c:when test="${fn:length(order.products) == 0}">
@@ -19,24 +22,26 @@
         <br />
     </c:when>    
     <c:otherwise>
-       <p>Order:
+       <div class=products>
 		<c:forEach items="${order.products}" var="entry">
-			<p>Product: ${entry.key.name}</p>
-			<p>Prize for one: ${entry.key.price}0 lv<p>
-			<img src = "${entry.key.pictureUrl }" />
+			<div class="product">
+			<h3>Product: ${entry.key.name}</h3>
+				<div class="pictures">
+				<img src="${entry.key.pictureUrl }" alt="PIZZA"
+						class="img-responsive">
+				</div>
+			<p class = "price">Prize for one: ${entry.key.price}0 lv<p>
 			<p>Quantity: ${entry.value}</p>
 				<form method = "POST">
 				<input type="hidden" name="chosen" value = "${entry.key.id}">
 				<input class="button" type="submit" value="Remove"/>
 				</form>
+			</div>
 		</c:forEach>
-		</p>
+		</div>
         <br />
-        <p>
-			Price: ${price}
-		</p>	
 		<form action = "submitOrder" method="get">
-			<input type = "submit" value="submit" >
+			<input type = "submit" value=" Submit Order" class = "button1" >
 		</form>
     </c:otherwise>
 </c:choose>
