@@ -13,17 +13,18 @@
 
 <h1 class="header" align="center">YOUR PREVIOUS ORDERS</h1>
 
-  <p>Orders:
+  <h3 align= "center">Orders</h3>
 		<c:forEach items="${ordersAndAddresses}" var="entry">
-		  <p>Products:</p>
+<%-- 		  <p>Products:</p>
 			<c:forEach items = "${entry.key.products }" var = "product">
 			<p> ${product.key.name }</p>
 			<img src = "${product.key.pictureUrl }" />
-			</c:forEach>
-			<p>Price: ${entry.key.price}</p>
-			<p>Address: ${entry.value }
+			</c:forEach> --%>
+			<div align = "center">
+				<p>Price: ${entry.key.price}</p>
+				<p>Date : ${entry.key.datetime }</p>
+				<p>Address: ${entry.value }
+			</div>
 		</c:forEach>
-		</p>
-
 </body>
 </html>
