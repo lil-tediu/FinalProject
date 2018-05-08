@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dominos.model.address.Address;
-import com.dominos.model.address.AddressDao;
+import com.dominos.model.address.IAddressDAO;
 import com.dominos.model.user.User;
 import com.dominos.model.user.UserDao;
 
@@ -28,7 +28,7 @@ public class HelloController {
 	private UserDao dao;
 
 	@Autowired
-	private AddressDao ad;
+	private IAddressDAO ad;
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String hello(Model model, HttpSession s) {

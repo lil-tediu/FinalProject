@@ -19,16 +19,16 @@ import com.dominos.model.order.Order;
 import com.dominos.model.order.OrderDao;
 import com.dominos.model.user.User;
 import com.dominos.model.products.Drink;
+import com.dominos.model.products.IProductDAO;
 import com.dominos.model.products.Pizza;
 import com.dominos.model.products.Product;
-import com.dominos.model.products.ProductDAO;
 import com.dominos.model.products.Sauce;
 
 @Controller
 public class ProductController {
 	
 	@Autowired
-	private ProductDAO dao;
+	private IProductDAO dao;
 	@Autowired
 	private OrderDao orderDao;
 	

@@ -24,7 +24,7 @@ import com.dominos.model.exceptions.URLException;
 
 
 @Component
-public class ProductDAO {
+public class ProductDAO implements IProductDAO {
 
 	private static final String GET_PRODUCT_BY_ID_SQL = "SELECT * FROM dominos.product where product_id = ?;";
 	private static final String GET_ALL_DRINKS_SQL = "SELECT * FROM dominos.product join dominos.drink on product_product_id = product_id;";
@@ -39,7 +39,7 @@ public class ProductDAO {
 	
 	
 	
-	private static ProductDAO instance = null;
+	//private static ProductDAO instance = null;
 	private Set<Product> products;
 	
 	@Autowired
@@ -60,6 +60,10 @@ public class ProductDAO {
 //		return instance;
 //	}
 
+	/* (non-Javadoc)
+	 * @see com.dominos.model.products.IProductDAO#getProductById(long)
+	 */
+	@Override
 	public Product getProductById(long id) throws ProductException, URLException {
 		// for (Product product : this.products) {
 		// if (product.getId() == id) {
@@ -88,6 +92,10 @@ public class ProductDAO {
 //		this.products.add(product);
 //	}
 
+	/* (non-Javadoc)
+	 * @see com.dominos.model.products.IProductDAO#getAllDrinks()
+	 */
+	@Override
 	public Set<Drink> getAllDrinks() throws URLException, ProductException {
 		Statement st;
 		try {
@@ -106,6 +114,10 @@ public class ProductDAO {
 		throw new ProductException("No drinks");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.dominos.model.products.IProductDAO#getAllSauces()
+	 */
+	@Override
 	public Set<Sauce> getAllSauces() throws URLException, ProductException {
 		Statement st;
 		try {
@@ -126,6 +138,10 @@ public class ProductDAO {
 		throw new ProductException("No Sauces");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.dominos.model.products.IProductDAO#getAllPizzas()
+	 */
+	@Override
 	public Set<Pizza> getAllPizzas() throws URLException, ProductException {
 		Statement st;
 		try {
@@ -148,6 +164,10 @@ public class ProductDAO {
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see com.dominos.model.products.IProductDAO#addNewCustomPizza(com.dominos.model.products.CustomPizza)
+	 */
+	@Override
 	public void addNewCustomPizza(CustomPizza customPizza) {
 		PreparedStatement ps;
 		 try {

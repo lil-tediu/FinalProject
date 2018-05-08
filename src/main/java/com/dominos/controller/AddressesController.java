@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.dominos.model.address.Address;
-import com.dominos.model.address.AddressDao;
+import com.dominos.model.address.IAddressDAO;
 import com.dominos.model.exceptions.ProductException;
 import com.dominos.model.exceptions.URLException;
 import com.dominos.model.order.Order;
@@ -33,7 +33,7 @@ public class AddressesController {
 	private UserDao dao;
 
 	@Autowired
-	private AddressDao ad;
+	private IAddressDAO ad;
 	
 	@Autowired
 	private OrderDao od;
