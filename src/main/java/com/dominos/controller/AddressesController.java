@@ -20,6 +20,7 @@ import com.dominos.model.address.AddressDao;
 import com.dominos.model.exceptions.ProductException;
 import com.dominos.model.exceptions.URLException;
 import com.dominos.model.order.Order;
+import com.dominos.model.order.OrderDao;
 import com.dominos.model.products.Drink;
 import com.dominos.model.products.Product;
 import com.dominos.model.products.ProductDAO;
@@ -33,6 +34,9 @@ public class AddressesController {
 
 	@Autowired
 	private AddressDao ad;
+	
+	@Autowired
+	private OrderDao od;
 
 	@RequestMapping(value = "/viewaddresses", method = RequestMethod.GET)
 	public String allAddress(Model model, HttpSession s) {
@@ -61,7 +65,7 @@ public class AddressesController {
 			e.printStackTrace();
 		}
 		model.addAttribute("addresses", addresses);
-		System.out.println(addresses.size());
+		//System.out.println(addresses.size());
 		for (Address address : addresses) {
 			System.out.println(address.getAddress());
 		}
@@ -75,6 +79,7 @@ public class AddressesController {
 		}
 			User user = (User) s.getAttribute("loggedUser");
 			long id = Long.parseLong(request.getParameter("chosen"));
+			od.deleteOrderOnAddress(id);
 			ad.deleteAddress(user.getId(), id);
 			//add successfully removed
 			return "addresses";
