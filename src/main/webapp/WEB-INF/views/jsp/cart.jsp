@@ -42,10 +42,13 @@
         <br />
 		<form action = "submitOrder" method="get">
 			<input type = "submit" value=" Submit Order" class = "button1" >
+			
+			
 		</form>
     </c:otherwise>
 </c:choose>
-
+  
+  
 		
 
 </body>

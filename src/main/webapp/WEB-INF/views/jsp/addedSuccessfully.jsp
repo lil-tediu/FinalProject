@@ -27,7 +27,7 @@
 
 
 <h1 class="header" align="center">Your order was added successfully </h1>
- 
+ <button type="button" class="btn" onclick="location.href='./drinks'">Go back</button>
 
 </body>
 </html>
