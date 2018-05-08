@@ -151,6 +151,6 @@ public class CreatePizzaController {
 			e.printStackTrace();
 			return "error";
 		}
-		return "productAddedToCart";
+		return "redirect:cart";
 	}
 }

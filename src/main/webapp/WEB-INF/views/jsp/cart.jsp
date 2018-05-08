@@ -18,7 +18,7 @@
 	
 	<c:choose>
     <c:when test="${fn:length(order.products) == 0}">
-       <p>You have no products in the cart yet!</p>
+       <h3 align="center">Your cart is empty!</h3>
         <br />
     </c:when>    
     <c:otherwise>

@@ -19,6 +19,6 @@
 		</c:forEach>
 		</p>
 		<p>Number of orders: ${fn:length(user.orders)}</p>
-	<a href="./drinks">Continue shopping</a>]
+	<a href="./drinks">Continue shopping</a>
 </body>
 </html>
