@@ -44,15 +44,6 @@ public class AddressesController {
 			 return "redirect:/index";
 		}
 
-//		try {
-//			ad = AddressDao.getInstance();
-//		} catch (ClassNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 		HashSet<Address> addresses = new HashSet<>();
 		try {
 			User u = (User)s.getAttribute("loggedUser");

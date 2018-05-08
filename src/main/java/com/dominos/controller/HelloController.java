@@ -69,7 +69,7 @@ public class HelloController {
 			} else {
 				if (dao.existsUser(user.getEmail(), user.getPassword())) {
 					result.addError(new ObjectError("err", "User exist"));
-					System.out.println("In exust user");
+				//	System.out.println("In exust user");
 					return "index";
 				} else {
 					dao.register(user);
@@ -112,37 +112,6 @@ public class HelloController {
 		return "index1";
 	}
 
-	// @RequestMapping(value = "/updateProfile", method = RequestMethod.GET)
-	//
-	// private String updateProfile(User user, HttpSession sess){
-	//
-	// sess.setAttribute("user", user);
-	//
-	// return "updateProfile";
-	// }
-	// @RequestMapping(value = "/updateProfile", method = RequestMethod.POST)
-	//
-	// private String doUpdateProfile(User user, HttpSession sess){
-	//
-	// user.setId(((User) sess.getAttribute("user")).getId());
-	// try {
-	// dao.updateUser(user);
-	// } catch (SQLException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	// try {
-	// user = dao.getUser(user.getEmail());
-	// } catch (ClassNotFoundException | SQLException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// return "redirect:index.html";
-	//
-	// }
-	// sess.setAttribute("user", user);
-	//
-	// return "redirect:pizzas:";
-	// }
 
 	@RequestMapping(value = "/updateProfile", method = RequestMethod.POST)
 	private String doUpdateProfile(@ModelAttribute User registeredUser,HttpSession s,HttpServletRequest request,final RedirectAttributes redirectAttributes) {
@@ -151,35 +120,33 @@ public class HelloController {
 		}
 
 
-		System.out.println(((User) s.getAttribute("loggedUser")).getId());
+	//	System.out.println(((User) s.getAttribute("loggedUser")).getId());
 		
 		registeredUser.setId(((User) s.getAttribute("loggedUser")).getId());
 		
 		String fName=request.getParameter("firstname");
-		System.out.println(fName);
+	//	System.out.println(fName);
 		registeredUser.setFirstName(fName);
 		
 		String lName=request.getParameter("lastname");
-		System.out.println(lName);
+//		System.out.println(lName);
 		registeredUser.setLastName(lName);
 		
 		String mail=request.getParameter("email");
-		System.out.println(mail);
+	//	System.out.println(mail);
 		registeredUser.setEmail(mail);
 
 		String pass1=request.getParameter("password");
 		String pass2=request.getParameter("password2");
 		
 		if(!pass1.equals(pass2)) {
-//			String message = "Invalid username or password!";
-//			 redirectAttributes.addFlashAttribute("error", message);
+
 			return "updateProfile";
 
 		}else {
-		//	request.setAttribute("equallPassword", null);
-
+		
 		registeredUser.setPassword(pass1);
-		System.out.println(pass1);
+	//	System.out.println(pass1);
 		try {
 			dao.updateUser(registeredUser);
 		} catch (SQLException e) {
@@ -204,12 +171,12 @@ public class HelloController {
 		}
 
 		User u = new User();
-		User loggedUser = (User) s.getAttribute("loggedUser");
-		if (loggedUser != null) {
-			System.out.println("User exist");
-		} else {
-			System.out.println("User does not exist");
-		}
+//		User loggedUser = (User) s.getAttribute("loggedUser");
+//		if (loggedUser != null) {
+//			System.out.println("User exist");
+//		} else {
+//			System.out.println("User does not exist");
+//		}
 		model.addAttribute("updatedUser", u);
 		request.setAttribute("equallPassword", null);
 
