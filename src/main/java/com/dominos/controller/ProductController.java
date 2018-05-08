@@ -162,6 +162,9 @@ public class ProductController {
 			e.printStackTrace();
 			return "error";
 		}
+		catch (NumberFormatException e) {
+			return "redirect:pizzas";
+		}
 		// name of view deto shte gi pokazva
 		return "productAddedToCart";
 	}
@@ -192,6 +195,9 @@ public class ProductController {
 			// TODO Auto-generated catch block
 			return "error";
 		}
+		catch (NumberFormatException e) {
+			return "redirect:drinks";
+		}
 		// name of view deto shte gi pokazva
 		return "productAddedToCart";
 	}
@@ -201,6 +207,8 @@ public class ProductController {
 		if (s==null || s.getAttribute("loggedUser")==null) {
 			 return "redirect:/index";
 		}
+		
+		
 		
 		try {
 //			if (order.getProducts().isEmpty()) { //ako poruchkata e prazna, toest e nova
@@ -219,6 +227,9 @@ public class ProductController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return "error";
+		}
+		catch (NumberFormatException e) {
+			return "redirect:sauces";
 		}
 		// name of view deto shte gi pokazva
 		return "productAddedToCart";
