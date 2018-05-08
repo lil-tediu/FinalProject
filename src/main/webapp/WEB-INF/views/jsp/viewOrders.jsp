@@ -20,8 +20,9 @@
 				<p>Price: ${entry.key.price}</p>
 				<p>Date : ${entry.key.datetime }</p>
 				<p>Address: ${entry.value }</p>
-				<form>
-				
+				<form action = "./orders/${entry.key.id }">
+					<input type = "hidden" value="${entry.key.id}" />
+					<input type = "submit" value = "View details" />
 				</form>
 				<br>
 				<br>
