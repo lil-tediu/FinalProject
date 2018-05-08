@@ -28,15 +28,15 @@ import com.dominos.model.exceptions.URLException;
 import com.dominos.model.order.Order;
 import com.dominos.model.order.OrderDao;
 import com.dominos.model.products.CustomPizza;
+import com.dominos.model.products.IProductDAO;
 import com.dominos.model.products.Product;
-import com.dominos.model.products.ProductDAO;
 import com.dominos.model.user.User;
 
 @Controller
 public class CreatePizzaController {
 	
 	@Autowired
-	private ProductDAO dao;
+	private IProductDAO dao;
 	
 	@Autowired
 	private OrderDao odao;

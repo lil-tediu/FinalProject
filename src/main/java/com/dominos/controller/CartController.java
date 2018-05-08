@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.dominos.model.address.Address;
-import com.dominos.model.address.AddressDao;
+import com.dominos.model.address.IAddressDAO;
 import com.dominos.model.exceptions.ProductException;
 import com.dominos.model.exceptions.URLException;
 import com.dominos.model.order.Order;
 import com.dominos.model.order.OrderDao;
+import com.dominos.model.products.IProductDAO;
 import com.dominos.model.products.Product;
-import com.dominos.model.products.ProductDAO;
 import com.dominos.model.user.User;
 import com.dominos.model.user.UserDao;
 
@@ -36,10 +36,10 @@ public class CartController {
 	private OrderDao odao;
 	
 	@Autowired
-	private ProductDAO pdao;
+	private IProductDAO pdao;
 	
 	@Autowired
-	private AddressDao adao;
+	private IAddressDAO adao;
 
 	@RequestMapping(value = "/cart", method = RequestMethod.GET)
 	public String productsInCart(Model model, HttpSession s ) {

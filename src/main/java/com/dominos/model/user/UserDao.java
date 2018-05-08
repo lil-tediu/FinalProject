@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 import com.dominos.db.DBConnection;
 import com.dominos.model.address.Address;
-import com.dominos.model.address.AddressDao;
+import com.dominos.model.address.IAddressDAO;
 import com.dominos.model.order.Order;
 import com.dominos.model.order.OrderDao;
 //import com.dominos.tests.Encrypter;
@@ -41,7 +41,7 @@ public class UserDao implements IUserDAO {
 	private OrderDao od;
 	
 	@Autowired 
-	private AddressDao ad;
+	private IAddressDAO ad;
 	
 	@Autowired
 	private Connection con;

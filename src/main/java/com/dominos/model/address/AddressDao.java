@@ -24,7 +24,7 @@ import com.dominos.model.user.User;
 import com.dominos.model.user.UserDao;
 
 @Component
-public class AddressDao {
+public class AddressDao implements IAddressDAO {
 
 	private static final String GET_ALL_ADDRESSES_OF_USER = "select * from " + "address a\r\n" + "join user u\r\n"
 			+ "on (a.user_id=u.user_id) where u.user_id=?";
@@ -61,6 +61,10 @@ public class AddressDao {
 	// return instance;
 	// }
 
+	/* (non-Javadoc)
+	 * @see com.dominos.model.address.IAddressDAO#getAddressOfUser(com.dominos.model.user.User)
+	 */
+	@Override
 	public HashSet<Address> getAddressOfUser(User u) throws ClassNotFoundException, SQLException {
 		// Connection con = DBconnection.getConnection();
 		PreparedStatement ps = con.prepareStatement(GET_ALL_ADDRESSES_OF_USER);
@@ -78,6 +82,10 @@ public class AddressDao {
 		return addresses;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.dominos.model.address.IAddressDAO#getAddressOfOrder(com.dominos.model.order.Order)
+	 */
+	@Override
 	public Address getAddressOfOrder(Order o) throws ClassNotFoundException, SQLException, AddressException {
 		ResultSet rs = null;
 		// Connection con = DBconnection.getConnection();
@@ -101,6 +109,10 @@ public class AddressDao {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.dominos.model.address.IAddressDAO#insertAddressForUser(com.dominos.model.address.Address)
+	 */
+	@Override
 	public void insertAddressForUser(Address address) throws SQLException {
 		// Connection con = DBconnection.getConnection();
 		String query = INSERT_ADDRESS_FOR_USER;
@@ -122,6 +134,10 @@ public class AddressDao {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.dominos.model.address.IAddressDAO#getAddresById(long)
+	 */
+	@Override
 	public Address getAddresById(long id) {
 		Address address = new Address();
 		try {
@@ -145,6 +161,10 @@ public class AddressDao {
 		return address;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.dominos.model.address.IAddressDAO#deleteAddress(long, long)
+	 */
+	@Override
 	public void deleteAddress(long userId, long addressId) {
 		try {
 			PreparedStatement ps = con.prepareStatement(DELETE_ADDRESS);
