@@ -94,7 +94,11 @@
 
 
 
+<<<<<<< HEAD
 <h1 class="header" align="center">YOUR ORDER FROM : ${date} </h1>
+=======
+<h1 class="header" align="center">YOUR ORDER FROM : ${order.datetime} </h1>
+>>>>>>> 2d9d4734d96c226771adf72c7874e57eab3c431b
 <h2 class="header" align="center">Price: ${order.price}0 lv</h2>
 
 <div class=products>
