@@ -134,6 +134,6 @@ public class AddressesController {
 			return "redirect:index.html";
 
 		}
-		return "addedAddressSuccesfully";
+		return "redirect:viewaddresses";
 	}
 }
