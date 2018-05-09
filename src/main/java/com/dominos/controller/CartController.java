@@ -170,7 +170,7 @@ public class CartController {
 					return "order";
 				}
 				else {
-					return "error";
+					return "redirect:../index";
 				}
 			} catch (ClassNotFoundException | SQLException | AddressException e) {
 				e.printStackTrace();
