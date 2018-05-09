@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.DigestUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -96,7 +97,10 @@ public class HelloController {
 				result.addError(new ObjectError("err", "Invalid input"));
 				return "index1";
 			}
+			
+			System.out.println(user.getPassword());
 			if (dao.existsUser(user.getEmail(), user.getPassword())) {
+				
 				user = dao.getUser(user.getEmail());
 				// HttpSession session = request.getSession();
 				s.setMaxInactiveInterval(120);
