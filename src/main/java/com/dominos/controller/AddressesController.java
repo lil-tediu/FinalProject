@@ -66,7 +66,7 @@ public class AddressesController {
 		long id = Long.parseLong(request.getParameter("chosen"));
 		od.deleteOrderOnAddress(id);
 		ad.deleteAddress(user.getId(), id);
-		return "addresses";
+		return "redirect:addresses";
 	}
 
 	@RequestMapping(value = "/addresses", method = RequestMethod.GET)
