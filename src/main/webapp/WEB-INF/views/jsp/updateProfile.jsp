@@ -45,9 +45,6 @@
 								Name</label> <input type="text" id="lname" name="lastname"
 								placeholder="${user.lastName}" pattern="([A-z\s]){2,}" required>
 
-							<label for="email">E-mail</label> <input type="text" id="email"
-								name="email" placeholder="${user.email }"
-								pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
 
 							<label for="password">Password</label> <input type="password"
 								id="password" name="password" required> <br> <br>

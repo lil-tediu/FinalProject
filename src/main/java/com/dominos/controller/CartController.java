@@ -74,7 +74,6 @@ public class CartController {
 				model.addAttribute("order", order);
 				model.addAttribute("price", price);
 			} catch (ProductException | URLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return "error";
 			}
@@ -91,7 +90,6 @@ public class CartController {
 				Set<Address> addresses = adao.getAddressOfUser(user);
 				model.addAttribute("adresses", addresses);
 			} catch (ClassNotFoundException | SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return "error";
 			}
@@ -118,7 +116,6 @@ public class CartController {
 				odao.insertProductsFromOrder(order.getId(), order.getProducts());
 				
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return "error";
 			}
@@ -145,7 +142,6 @@ public class CartController {
 				}
 				model.addAttribute("ordersAndAddresses", ordersAndAddresses);
 			} catch (ClassNotFoundException | SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return "error";
 			}

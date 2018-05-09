@@ -21,5 +21,6 @@ public interface IOrderDAO {
 	Order getActiveOrderForUser(User user) throws SQLException;
 	
 	Order getOrderById(long id) throws SQLException, ClassNotFoundException, AddressException;
-	
+	void deleteOrderOnAddress(long address_id);
+
 }

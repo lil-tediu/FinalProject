@@ -156,7 +156,6 @@ public class CreatePizzaController {
 			model.addAttribute("user", user);
 			
 		} catch (ProductException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return "error";
 		}

@@ -76,11 +76,7 @@ public class HelloController {
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
-//			 String message="Sorry, this username already exist";   
-//			   //     ModelAndView model= new ModelAndView();
-//			   //      redirectAttributes.addFlashAttribute("error", message);
-//				 map.put("error",message);
-//				 
+			 
 //				 return "index";
 		}
 		 String message="Sorry, this username already exist";   
@@ -125,6 +121,7 @@ public class HelloController {
 		if (s == null || s.getAttribute("loggedUser") == null) {
 			return "redirect:/index";
 		}
+		User loggedUser = (User) s.getAttribute("loggedUser");
 
 
 	//	System.out.println(((User) s.getAttribute("loggedUser")).getId());
@@ -139,9 +136,9 @@ public class HelloController {
 //		System.out.println(lName);
 		registeredUser.setLastName(lName);
 		
-		String mail=request.getParameter("email");
+	//	String mail=request.getParameter("email");
 	//	System.out.println(mail);
-		registeredUser.setEmail(mail);
+		registeredUser.setEmail(loggedUser.getEmail());
 
 		String pass1=request.getParameter("password");
 		String pass2=request.getParameter("password2");

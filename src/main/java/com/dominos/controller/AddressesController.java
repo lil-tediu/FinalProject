@@ -20,6 +20,7 @@ import com.dominos.model.address.Address;
 import com.dominos.model.address.IAddressDAO;
 import com.dominos.model.exceptions.ProductException;
 import com.dominos.model.exceptions.URLException;
+import com.dominos.model.order.IOrderDAO;
 import com.dominos.model.order.Order;
 import com.dominos.model.order.OrderDao;
 import com.dominos.model.products.Drink;
@@ -35,7 +36,7 @@ public class AddressesController {
 	private IAddressDAO ad;
 
 	@Autowired
-	private OrderDao od;
+	private IOrderDAO od;
 
 	@RequestMapping(value = "/viewaddresses", method = RequestMethod.GET)
 	public String allAddress(Model model, HttpSession s) {
@@ -107,9 +108,7 @@ public class AddressesController {
 				map.put("error", message);
 				return "addresses";
 			}else {
-
 			readyAddress.setAddress(address);
-
 			readyAddress.setUser(loggedUser);
 			ad.insertAddressForUser(readyAddress);
 			}
