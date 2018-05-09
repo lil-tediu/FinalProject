@@ -100,6 +100,7 @@ public class CustomPizza extends Product {
 		}
 		if (supplements != null && supplements.size() > 0) {
 			for (String x : supplements) {
+				x = x.replace(' ', '_');
 				Addable addable = Addable.toEnum(x);
 				this.addSupliment(addable);
 			}
