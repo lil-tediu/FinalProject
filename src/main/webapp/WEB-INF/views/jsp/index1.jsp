@@ -27,7 +27,7 @@
 	</div>
 
 	<sf:form class="login-form" method="post" modelAttribute="user">
-		<sf:label path="email">Username:</sf:label>
+		<sf:label path="email">E-mail:</sf:label>
 		<sf:input path="email" name="email" />
 		<sf:errors path="email" cssClass="nameField"
 			cssErrorClass="errorField" />

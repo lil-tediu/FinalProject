@@ -5,7 +5,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Flat Login Form</title>
+<title>Dominos</title>
 
      <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet"

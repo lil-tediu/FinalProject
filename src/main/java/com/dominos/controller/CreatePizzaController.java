@@ -49,6 +49,7 @@ public class CreatePizzaController {
 		Set<String> cheese = new HashSet<String>();
 		for (Cheese c : Cheese.values()) {
 			String s = c.toString();
+			s = s.replace('_', ' ');
 			cheese.add(s);
 		}
 		model.addAttribute("cheese", cheese);
@@ -56,6 +57,7 @@ public class CreatePizzaController {
 		Set<String> meat = new HashSet<String>();
 		for (Meat c : Meat.values()) {
 			String s = c.toString();
+			s = s.replace('_', ' ');
 			meat.add(s);
 		}
 		model.addAttribute("meat", meat);
@@ -63,6 +65,7 @@ public class CreatePizzaController {
 		Set<String> spices = new HashSet<String>();
 		for (Spice s : Spice.values()) {
 			String s1 = s.toString();
+			s1= s1.replace('_', ' ');
 			spices.add(s1);
 		}
 		model.addAttribute("spices", spices);
@@ -70,6 +73,7 @@ public class CreatePizzaController {
 		Set<String> vegetables = new HashSet<String>();
 		for (Vegetable v : Vegetable.values()) {
 			String s = v.toString();
+			s = s.replace('_', ' ');
 			vegetables.add(s);
 		}
 		model.addAttribute("vegetables", vegetables);
@@ -77,6 +81,7 @@ public class CreatePizzaController {
 		Set<String> dough = new HashSet<String>();
 		for (Dough d : Dough.values()) {
 			String s = d.toString();
+			s = s.replace('_', ' ');
 			dough.add(s);
 		}
 		model.addAttribute("dough", dough);
@@ -84,6 +89,7 @@ public class CreatePizzaController {
 		Set<String> pizzaSauce = new HashSet<String>();
 		for (PizzaSauce d : PizzaSauce.values()) {
 			String s = d.toString();
+			s = s.replace('_', ' ');
 			pizzaSauce.add(s);
 		}
 		model.addAttribute("pizzaSauce", pizzaSauce);
@@ -91,6 +97,7 @@ public class CreatePizzaController {
 		Set<String> size = new HashSet<String>();
 			for (Size d : Size.values()) {
 				String s = d.toString();
+				s = s.replace('_', ' ');
 				size.add(s);
 		}
 		model.addAttribute("size", size);
