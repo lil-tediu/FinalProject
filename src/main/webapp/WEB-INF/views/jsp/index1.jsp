@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
 <jsp:include page="headerNotLogged.jsp"></jsp:include>
@@ -38,6 +39,8 @@
 		<sf:password path="password" name="password" />
 		<sf:errors path="password" cssClass="nameField"
 			cssErrorClass="errorField" />
+			
+			<c:if test="${empty serverUrl}"> <div  class="errorField"><c:out value="${errMsg1}"/></div> </c:if>
 		<br>
 		<br>
 		<button>login</button>

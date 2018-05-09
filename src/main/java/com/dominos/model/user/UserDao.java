@@ -22,6 +22,9 @@ import com.dominos.model.order.OrderDao;
 public class UserDao implements IUserDAO {
 
 	private static final String IS_USER_EXCIST = "SELECT count(*) as count FROM user WHERE e_mail = ? AND password =sha1(?)";
+	
+	private static final String HAS_SUCH_EMAIL = "SELECT count(*) as count FROM user WHERE e_mail = ?";
+
 
 	private static final String REGISTER_USER_SQL = "INSERT INTO user (firstName, lastName,password, e_mail, picture_url) VALUES (?, ?, sha1(?), ?,?)";
 
@@ -88,13 +91,13 @@ public class UserDao implements IUserDAO {
 		}
 	}
 
-	public boolean existsUser(String e_mail, String password) throws SQLException, ClassNotFoundException {
+	public boolean hasSuchEmail(String e_mail) throws SQLException, ClassNotFoundException {
 		// Connection con = db.getConnection();
 		ResultSet rs = null;
-		try (PreparedStatement ps = con.prepareStatement(IS_USER_EXCIST);) {
+		try (PreparedStatement ps = con.prepareStatement(HAS_SUCH_EMAIL);) {
 
 			ps.setString(1, e_mail);
-			ps.setString(2, password);
+			
 			rs = ps.executeQuery();
 			rs.next();
 			return rs.getInt("count") > 0;
@@ -206,5 +209,21 @@ public class UserDao implements IUserDAO {
 			}
 		}
 
+	}
+	public boolean existsUser(String e_mail, String password) throws SQLException, ClassNotFoundException {
+		// Connection con = db.getConnection();
+		ResultSet rs = null;
+		try (PreparedStatement ps = con.prepareStatement(IS_USER_EXCIST);) {
+
+			ps.setString(1, e_mail);
+			ps.setString(2, password);
+			rs = ps.executeQuery();
+			rs.next();
+			return rs.getInt("count") > 0;
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+		}
 	}
 }

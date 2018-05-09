@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <jsp:include page="headerNotLogged.jsp"></jsp:include>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
 
@@ -10,7 +11,7 @@
 }
 
 .errorField {
-	color:  solid red;
+	color: solid red;
 	background-color: red;
 }
 </style>
@@ -47,6 +48,12 @@
 		Last name:<f:input path="lastName" />
 		<f:errors path="lastName" cssClass="nameField"
 			cssErrorClass="errorField" />
+
+		<c:if test="${not empty error}">
+			<p class="errorField">${error}</p>
+
+		</c:if>
+
 		<br>
 		<br>
 

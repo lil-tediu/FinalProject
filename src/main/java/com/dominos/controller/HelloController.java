@@ -10,12 +10,14 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.util.DigestUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dominos.model.address.Address;
@@ -39,12 +41,6 @@ public class HelloController {
 			return "index";
 		}
 
-		// HttpSession session = request.getSession();
-
-		// if (session.getAttribute("loggedUser")!=null) {
-		// session.invalidate();
-		// }
-
 		return "indexLogged";
 	}
 
@@ -57,24 +53,21 @@ public class HelloController {
 	}
 
 	@RequestMapping(value = "/index", method = RequestMethod.POST)
-	public String register(@ModelAttribute @Valid User user, BindingResult result, HttpSession s) {
+	public String register(@ModelAttribute @Valid User user, BindingResult result, HttpSession s,ModelMap map) {
 		try {
 
 			if (result.hasFieldErrors()) {
-				// If not a valid user then add error
-				// else proceed to user welcome page
-
 				result.addError(new ObjectError("err", "Invalid input"));
 				return "index";
 
 			} else {
-				if (dao.existsUser(user.getEmail(), user.getPassword())) {
-					result.addError(new ObjectError("err", "User exist"));
-				//	System.out.println("In exust user");
-					return "index";
+				if (dao.hasSuchEmail(user.getEmail())) {
+				   
+					 String message="Sorry, this username already exist";   
+					 map.put("error",message);
+					 return "index";
 				} else {
 					dao.register(user);
-					// HttpSession session = request.getSession();
 					s.setMaxInactiveInterval(120);
 					s.setAttribute("loggedUser", user);
 					return "redirect:/drinks";
@@ -83,14 +76,21 @@ public class HelloController {
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
+//			 String message="Sorry, this username already exist";   
+//			   //     ModelAndView model= new ModelAndView();
+//			   //      redirectAttributes.addFlashAttribute("error", message);
+//				 map.put("error",message);
+//				 
+//				 return "index";
 		}
-		result.addError(new ObjectError("err", "Invalid input"));
-
-		return "index";
+		 String message="Sorry, this username already exist";   
+			 map.put("error",message);
+			 
+			 return "index";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(Model model, HttpSession s, @ModelAttribute @Valid User user, BindingResult result) {
+	public String login(Model model, HttpSession s, @ModelAttribute @Valid User user, BindingResult result,ModelMap map) {
 		try {
 
 			if (result.hasFieldErrors()) {
@@ -112,13 +112,16 @@ public class HelloController {
 			e.printStackTrace();
 			return "error";
 		}
-		result.addError(new ObjectError("err", "Invalid input"));
+		String errormsg="Invalid username or password";
+	    map.put("errMsg1",errormsg);
+	    System.out.println(errormsg);
+		//result.addError(new ObjectError("err", "Invalid input"));
 		return "index1";
 	}
 
 
 	@RequestMapping(value = "/updateProfile", method = RequestMethod.POST)
-	private String doUpdateProfile(@ModelAttribute User registeredUser,HttpSession s,HttpServletRequest request,final RedirectAttributes redirectAttributes) {
+	private String doUpdateProfile(@ModelAttribute User registeredUser,HttpSession s,HttpServletRequest request,ModelMap map) {
 		if (s == null || s.getAttribute("loggedUser") == null) {
 			return "redirect:/index";
 		}
@@ -144,6 +147,8 @@ public class HelloController {
 		String pass2=request.getParameter("password2");
 		
 		if(!pass1.equals(pass2)) {
+			String errormsg="Password does not match";
+		    map.put("error",errormsg);
 			return "updateProfile";
 
 		}else {
