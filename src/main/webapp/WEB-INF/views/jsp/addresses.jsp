@@ -32,12 +32,12 @@
             <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
             <input type="text" id="adr" name="address" placeholder="ul.Bulgaria, 12" pattern="^[a-zA-Z0-9,.!? ]*$" required>
             <label for="city"><i class="fa fa-institution"></i> City</label>
-            <input type="text" id="city" name="city" placeholder="Sofia" pattern="[A-Za-z]" required>
+            <input type="text" id="city" name="city" placeholder="Sofia" pattern="([A-z\s]){2,}" required>
 
             <div class="row">
               <div class="col-50">
                 <label for="state">State</label>
-                <input type="text" id="state" name="state" placeholder="Sofia" pattern="[A-Za-z]" required>
+                <input type="text" id="state" name="state" placeholder="Sofia" pattern="([A-z\s]){2,}" required>
               </div>
               <div class="col-50">
                 <label for="zip">Zip</label>
