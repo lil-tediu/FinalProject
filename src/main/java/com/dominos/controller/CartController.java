@@ -165,14 +165,17 @@ public class CartController {
 				if (isValidOrder(id,userId )) {
 					Order order = odao.getOrderById(id);
 					order.setProducts(odao.getProductsForOrder(order.getId()));
+					Order.calculatePriceForCart(order.getProducts());
 					model.addAttribute(order);
 					return "order";
+				}
+				else {
+					return "error";
 				}
 			} catch (ClassNotFoundException | SQLException | AddressException e) {
 				e.printStackTrace();
 				return "error";
 			}
-		return "index";
 	}
 
 
