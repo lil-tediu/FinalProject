@@ -36,18 +36,16 @@ public class ProductController {
 	public String allDrinks(Model model, HttpSession s) {
 		if (s==null || s.getAttribute("loggedUser")==null) {
 			try {
-			//	dao = ProductDAO.getInstance();
 				Set<Drink> drinks = dao.getAllDrinks();
 				model.addAttribute("drinks", drinks);
 			} catch (URLException | ProductException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				return "error";
 			}
 			return "AllDrinksNotReg";
 		}
 		
 		try {
-		//	dao = ProductDAO.getInstance();
 			Set<Drink> drinks = dao.getAllDrinks();
 			model.addAttribute("drinks", drinks);
 			User user = ((User) s.getAttribute("loggedUser"));
@@ -56,10 +54,10 @@ public class ProductController {
 			user.addOrder(order);
 			model.addAttribute("order", order);
 		} catch (URLException | ProductException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return "error";
+
 		}
-		// name of view deto shte gi pokazva
 		return "AllDrinks";
 	}
 	
@@ -68,18 +66,16 @@ public class ProductController {
 	public String allPizzas(Model model, HttpSession s) {
 		if (s==null || s.getAttribute("loggedUser")==null) {
 			try {
-			//	dao = ProductDAO.getInstance();
 				Set<Pizza> pizzas = dao.getAllPizzas();
 				model.addAttribute("pizzas", pizzas);
 			} catch (URLException | ProductException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				return "error";
 			}
 			return "pizzasNotReg";
 		}
 		
 		try {
-		//	dao = ProductDAO.getInstance();
 			Set<Pizza> pizzas = dao.getAllPizzas();
 			model.addAttribute("pizzas", pizzas);
 			User user = ((User) s.getAttribute("loggedUser"));
@@ -88,10 +84,9 @@ public class ProductController {
 			user.addOrder(order);
 			model.addAttribute("order", order);
 		} catch (URLException | ProductException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return "error";
 		}
-		// name of view deto shte gi pokazva
 		return "pizzas";
 	}
 	
@@ -100,18 +95,16 @@ public class ProductController {
 	public String allSauces(Model model, HttpSession s) {
 		if (s==null || s.getAttribute("loggedUser")==null) {
 			try {
-				//dao = ProductDAO.getInstance();
 				Set<Sauce> sauces = dao.getAllSauces();
 				model.addAttribute("sauces", sauces);
 			} catch (URLException | ProductException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				return "error";
 			}
 			return "saucesNotReg";
 		}
 		
 		try {
-			//dao = ProductDAO.getInstance();
 			Set<Sauce> sauces = dao.getAllSauces();
 			model.addAttribute("sauces", sauces);
 			User user = ((User) s.getAttribute("loggedUser"));
@@ -121,24 +114,11 @@ public class ProductController {
 			model.addAttribute("order", order);
 			
 		} catch (URLException | ProductException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return "error";
 		}
-		// name of view deto shte gi pokazva
 		return "sauces";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	@RequestMapping(value="/pizzas",method = RequestMethod.POST)
 	public String allPizzasAdd(Model model, HttpSession s,HttpServletRequest request) {
@@ -151,37 +131,29 @@ public class ProductController {
 			int quantity = Integer.parseInt(request.getParameter("quantity"));
 			Product product = dao.getProductById(productId);
 			User user = ((User) s.getAttribute("loggedUser"));
-			
 			Order order = orderDao.getActiveOrderForUser(user);
 			order.addProduct(product, quantity);
 			float price = (float) Order.calculatePriceForCart(order.getProducts());
 			model.addAttribute("price", price);
 			model.addAttribute("order", order);
 		} catch (URLException | ProductException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return "error";
 		}
 		catch (NumberFormatException e) {
 			return "redirect:pizzas";
 		}
-		// name of view deto shte gi pokazva
 		return "redirect:cart";
 	}
 	
 	
 	
-	//Ne trqbva da ima @ModelAttribute Order order kato atgument!!!!! Mnogo vajno
 	@RequestMapping(value="/drinks",method = RequestMethod.POST)
 	public String allDrinksAdd(Model model, HttpSession s,HttpServletRequest request) {
 		if (s==null || s.getAttribute("loggedUser")==null) {
 			 return "redirect:/index";
 		}
-		
 		try {
-//			if (order.getProducts().isEmpty()) { //ako poruchkata e prazna, toest e nova
-//				orderDao.insertOrderForUser(order);
-//			}
 			User user = ((User) s.getAttribute("loggedUser"));
 			Order order = orderDao.getActiveOrderForUser(user);
 			long productId = Long.parseLong(request.getParameter("chosen"));
@@ -199,7 +171,6 @@ public class ProductController {
 		catch (NumberFormatException e) {
 			return "redirect:drinks";
 		}
-		// name of view deto shte gi pokazva
 		return "redirect:cart";
 	}
 	
@@ -208,13 +179,7 @@ public class ProductController {
 		if (s==null || s.getAttribute("loggedUser")==null) {
 			 return "redirect:/index";
 		}
-		
-		
-		
 		try {
-//			if (order.getProducts().isEmpty()) { //ako poruchkata e prazna, toest e nova
-//				orderDao.insertOrderForUser(order);
-//			}
 			User user = ((User) s.getAttribute("loggedUser"));
 			Order order = orderDao.getActiveOrderForUser(user);
 			long productId = Long.parseLong(request.getParameter("chosen"));
@@ -222,28 +187,21 @@ public class ProductController {
 			Product product = dao.getProductById(productId);
 			order.addProduct(product, quantity);
 			
-	
-		//	model.addAttribute("user", user);
-			float price = (float) Order.calculatePriceForCart(order.getProducts());
+	        float price = (float) Order.calculatePriceForCart(order.getProducts());
 			model.addAttribute("price", price);
 			model.addAttribute("order", order);
 		} catch (URLException | ProductException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return "error";
 		}
 		catch (NumberFormatException e) {
 			return "redirect:sauces";
 		}
-		// name of view deto shte gi pokazva
 		return "cart";
 	}
 	
-
 	@RequestMapping(value="/logout",method = RequestMethod.GET)
 	public String logout(Model model, HttpServletRequest request) {
-//			HttpSession session = request.getSession(false);
-//			session.invalidate();
 		request.getSession().invalidate();
 			return "redirect:/index";
 		}

@@ -38,8 +38,7 @@ public class AddressDao implements IAddressDAO {
 	private static final String GET_ADDRESS_BY_ID = "SELECT * FROM dominos.address where address_id = ?;";
 
 	private static final String DELETE_ADDRESS = "DELETE FROM address where user_id=? AND address_id=?";
-	private static final String IS_ADDRESS_EXCIST = "SELECT count(*) as count FROM address WHERE address = ?";
-
+	private static final String IS_ADDRESS_EXCIST = "SELECT count(*) as count FROM address WHERE address = ? and user_id=?;";
 
 	@Autowired
 	private Connection con;
@@ -50,19 +49,12 @@ public class AddressDao implements IAddressDAO {
 	@Autowired
 	private DBConnection db;
 
-	// private AddressDao() throws ClassNotFoundException, SQLException {
-	// this.con = db.getConnection();
-	// }
-	// public static AddressDao getInstance() throws ClassNotFoundException,
-	// SQLException {
-	// if (AddressDao.instance == null) {
-	// AddressDao.instance = new AddressDao();
-	// }
-	// return instance;
-	// }
-
-	/* (non-Javadoc)
-	 * @see com.dominos.model.address.IAddressDAO#getAddressOfUser(com.dominos.model.user.User)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.dominos.model.address.IAddressDAO#getAddressOfUser(com.dominos.model.user
+	 * .User)
 	 */
 	@Override
 	public HashSet<Address> getAddressOfUser(User u) throws ClassNotFoundException, SQLException {
@@ -82,13 +74,16 @@ public class AddressDao implements IAddressDAO {
 		return addresses;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.dominos.model.address.IAddressDAO#getAddressOfOrder(com.dominos.model.order.Order)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.dominos.model.address.IAddressDAO#getAddressOfOrder(com.dominos.model.
+	 * order.Order)
 	 */
 	@Override
 	public Address getAddressOfOrder(Order o) throws ClassNotFoundException, SQLException, AddressException {
 		ResultSet rs = null;
-		// Connection con = DBconnection.getConnection();
 		try (PreparedStatement ps = con.prepareStatement(GET_ADDRESS_OF_ORDER);) {
 			ps.setLong(1, o.getId());
 			Address adr = new Address();
@@ -109,12 +104,15 @@ public class AddressDao implements IAddressDAO {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.dominos.model.address.IAddressDAO#insertAddressForUser(com.dominos.model.address.Address)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.dominos.model.address.IAddressDAO#insertAddressForUser(com.dominos.model.
+	 * address.Address)
 	 */
 	@Override
 	public void insertAddressForUser(Address address) throws SQLException {
-		// Connection con = DBconnection.getConnection();
 		String query = INSERT_ADDRESS_FOR_USER;
 		ResultSet rs = null;
 
@@ -126,7 +124,7 @@ public class AddressDao implements IAddressDAO {
 			rs = ps.getGeneratedKeys();
 			rs.next();
 			address.setAddress_id(rs.getInt(1));
-
+			System.out.println("Id of address");
 		} finally {
 			if (rs != null) {
 				rs.close();
@@ -134,7 +132,9 @@ public class AddressDao implements IAddressDAO {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.dominos.model.address.IAddressDAO#getAddresById(long)
 	 */
 	@Override
@@ -155,13 +155,14 @@ public class AddressDao implements IAddressDAO {
 			return address;
 
 		} catch (SQLException | ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return address;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.dominos.model.address.IAddressDAO#deleteAddress(long, long)
 	 */
 	@Override
@@ -177,14 +178,14 @@ public class AddressDao implements IAddressDAO {
 		}
 
 	}
-	
-	public boolean hasSuchAddress(String address) throws SQLException, ClassNotFoundException {
-		// Connection con = db.getConnection();
+
+	public boolean hasSuchAddress(String address, long userId) throws SQLException, ClassNotFoundException {
 		ResultSet rs = null;
 		try (PreparedStatement ps = con.prepareStatement(IS_ADDRESS_EXCIST);) {
 
-			ps.setString(1,address);
-			
+			ps.setString(1, address);
+			ps.setLong(2, userId);
+
 			rs = ps.executeQuery();
 			rs.next();
 			return rs.getInt("count") > 0;

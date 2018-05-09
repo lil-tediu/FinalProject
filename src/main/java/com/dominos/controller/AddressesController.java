@@ -48,7 +48,7 @@ public class AddressesController {
 		try {
 			User u = (User) s.getAttribute("loggedUser");
 			addresses = ad.getAddressOfUser(u);
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";
 
@@ -63,10 +63,23 @@ public class AddressesController {
 			return "redirect:/index";
 		}
 		User user = (User) s.getAttribute("loggedUser");
+		System.out.println(user);
+		System.out.println(user.getId());
+		System.out.println(user.getEmail());
 		long id = Long.parseLong(request.getParameter("chosen"));
-		od.deleteOrderOnAddress(id);
-		ad.deleteAddress(user.getId(), id);
-		return "addresses";
+		try {
+			od.deleteOrderOnAddress(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+		try {
+			ad.deleteAddress(user.getId(), id);
+			return "successRemoveAddress";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
 	}
 
 	@RequestMapping(value = "/addresses", method = RequestMethod.GET)
@@ -103,20 +116,21 @@ public class AddressesController {
 			adr.append(" ,");
 			adr.append(zip);
 			String address = adr.toString();
-			if (ad.hasSuchAddress(address)) {
+			if (ad.hasSuchAddress(address,loggedUser.getId())) {
 				String message = "Sorry, this address already exist";
 				map.put("error", message);
 				return "addresses";
-			}else {
-			readyAddress.setAddress(address);
-			readyAddress.setUser(loggedUser);
-			ad.insertAddressForUser(readyAddress);
+			} else {
+				readyAddress.setAddress(address);
+				readyAddress.setUser(loggedUser);
+				loggedUser.addAddress(readyAddress);
+				ad.insertAddressForUser(readyAddress);
 			}
-		} catch (SQLException| ClassNotFoundException e) {
+		} catch (Exception e) {
 
 			e.printStackTrace();
 			return "error";
-		} 
+		}
 		return "redirect:viewaddresses";
 	}
 }
