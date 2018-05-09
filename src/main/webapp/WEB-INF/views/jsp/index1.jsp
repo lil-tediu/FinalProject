@@ -6,17 +6,9 @@
 
 
 <jsp:include page="headerNotLogged.jsp"></jsp:include>
+<link rel="stylesheet" href="css/style_errors.css">
 
-<style>
-.nameField {
-	border: 1px solid red;
-}
 
-.errorField {
-	color: solid red;
-	background-color: red;
-}
-</style>
 <div class="container">
 	<div class="info">
 		<h1>Login</h1>
@@ -39,8 +31,12 @@
 		<sf:password path="password" name="password" />
 		<sf:errors path="password" cssClass="nameField"
 			cssErrorClass="errorField" />
-			
-			<c:if test="${empty serverUrl}"> <div  class="errorField"><c:out value="${errMsg1}"/></div> </c:if>
+
+		<c:if test="${empty serverUrl}">
+			<div class="errorField">
+				<c:out value="${errMsg1}" />
+			</div>
+		</c:if>
 		<br>
 		<br>
 		<button>login</button>

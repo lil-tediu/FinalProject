@@ -1,0 +1,14 @@
+
+h1 {
+    text-align: center;
+    text-transform: uppercase;
+    color: #4CAF50;
+}
+h3 {
+    text-align: center;
+    text-indent: 50px;
+    letter-spacing: 3px;
+}
+body {
+    background-image: url("img/pizza4.jpg");
+}

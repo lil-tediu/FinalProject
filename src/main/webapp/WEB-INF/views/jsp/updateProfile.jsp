@@ -6,18 +6,9 @@
 <%@taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core'%>
+<link rel="stylesheet" href="css/style_errors.css">
 
 
-<style>
-.nameField {
-	border: 1px solid red;
-}
-
-.errorField {
-	color: solid red;
-	background-color: red;
-}
-</style>
 
 <script>
 	document.getElementsByClassName("active")[0].setAttribute("class",
