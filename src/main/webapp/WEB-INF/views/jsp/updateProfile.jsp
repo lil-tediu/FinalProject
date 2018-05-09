@@ -30,15 +30,15 @@
 							<h4>Please insert all fields:</h4>
 
 
-							<label for="fname">First Name</label> <input type="text"
-								id="fname" name="firstname" placeholder="${user.firstName }" required>
+							<label for="fname">First Name</label> <input type="text" 
+								id="fname" name="firstname" placeholder="${user.firstName}" pattern="([A-z\s]){2,}" required>
 
 							<label for="lname">Last Name</label> <input type="text"
-								id="lname" name="lastname" placeholder="${user.lastName }" required>
+								id="lname" name="lastname" placeholder="${user.lastName}" pattern="([A-z\s]){2,}" required>
 
 							<label for="email">E-mail</label> <input type="text" id="email"
-								name="email" placeholder="${user.email }" required>
-
+								name="email" placeholder="${user.email }" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
+								
 							<label for="password">Password</label> <input type="password"
 								id="password" name="password" required> <br> <br>
 							<label for="password2">Repeat password</label> <input
