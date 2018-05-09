@@ -1,9 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
-<%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
 
 <%@page errorPage="error.jsp"%>
 <!DOCTYPE html>
@@ -13,14 +7,10 @@
 <meta charset="UTF-8">
 <title>Flat Login Form</title>
 
-
-	<link rel="stylesheet"
-		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-
+     <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 
 <link rel='stylesheet prefetch'
 	href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900'>
@@ -30,11 +20,16 @@
 	href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
 
 <link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/styles_drinks.css">
+<link href="../css/style.default.css" rel="stylesheet"
+	id="theme-stylesheet">
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
-<link rel="stylesheet" href="../css/syle_Cart.css">
-<link href="css/style.default.css" rel="stylesheet" id="theme-stylesheet">
+ <link rel="stylesheet" href="../css/style_Cart.css">
 
-
+<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 
 <link rel="shortcut icon" type="image/png" href="../img/favicon.ico" />
 
@@ -107,8 +102,7 @@
 		<div class="product">
 			<h3>Product: ${entry.key.name}</h3>
 			<div class="pictures">
-				<img src="../${entry.key.pictureUrl }" alt="PIZZA"
-					class="img-responsive">
+				<img src="../${entry.key.pictureUrl }" alt="PIZZA" class="img-responsive">
 			</div>
 			<p class="price">Prize for one: ${entry.key.price}0 lv
 			<p>

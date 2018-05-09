@@ -21,41 +21,38 @@ import com.dominos.model.order.OrderDao;
 @Component
 public class UserDao implements IUserDAO {
 
-	private static final String IS_USER_EXCIST = "SELECT count(*) as count FROM user WHERE e_mail = ? AND password = ?";
+	private static final String IS_USER_EXCIST = "SELECT count(*) as count FROM user WHERE e_mail = ? AND password =sha1(?)";
 
-	private static final String REGISTER_USER_SQL = "INSERT INTO user (firstName, lastName,password, e_mail, picture_url) VALUES (?, ?, ?, ?,?)";
+	private static final String REGISTER_USER_SQL = "INSERT INTO user (firstName, lastName,password, e_mail, picture_url) VALUES (?, ?, sha1(?), ?,?)";
 
 	private static final String GET_USER_BY_MAIL = "SELECT user_id, firstName, lastName,password,e_mail, picture_url FROM user WHERE e_mail = ?";
 	// try
-	private static final String UPDATE_USER = "UPDATE user SET firstName = ?, lastName = ?, e_mail = ?, password = ?, picture_url= ? WHERE user_id= ?;";
+	private static final String UPDATE_USER = "UPDATE user SET firstName = ?, lastName = ?, e_mail = ?, password = sha1(?), picture_url= ? WHERE user_id= ?;";
 	// try
 	private static final String GET_USER_BY_ID = "SELECT e_mail AS email, firstName , lastName, password, picture_url FROM user WHERE user_id = ?";
-	
-	private static final String INSERT_ADDRESS_FOR_USER = "INSERT INTO address ( address, user_id) \r\n" + 
-			"					VALUES (?,?);";
+
+	private static final String INSERT_ADDRESS_FOR_USER = "INSERT INTO address ( address, user_id) \r\n"
+			+ "					VALUES (?,?);";
 	@Autowired
 	private DBConnection db;
 
-
-    @Autowired
+	@Autowired
 	private OrderDao od;
-	
-	@Autowired 
+
+	@Autowired
 	private IAddressDAO ad;
-	
+
 	@Autowired
 	private Connection con;
-	
-	
+
 	public void insertAddressForUser(Address address) throws SQLException {
-		//Connection con = db.getConnection();
-		
+		// Connection con = db.getConnection();
+
 		ResultSet rs = null;
 
 		try (PreparedStatement ps = con.prepareStatement(INSERT_ADDRESS_FOR_USER, Statement.RETURN_GENERATED_KEYS);) {
 			ps.setString(1, address.getAddress());
 			ps.setLong(2, address.getUser().getId());
-			
 
 			ps.executeUpdate();
 			rs = ps.getGeneratedKeys();
@@ -68,9 +65,9 @@ public class UserDao implements IUserDAO {
 			}
 		}
 	}
-	
-	public  void register(User u) throws SQLException, ClassNotFoundException {
-		//Connection con = db.getConnection();
+
+	public void register(User u) throws SQLException, ClassNotFoundException {
+		// Connection con = db.getConnection();
 		ResultSet rs = null;
 		try (PreparedStatement ps = con.prepareStatement(REGISTER_USER_SQL, Statement.RETURN_GENERATED_KEYS);) {
 			ps.setString(1, u.getFirstName());
@@ -83,7 +80,7 @@ public class UserDao implements IUserDAO {
 			rs.next();
 			u.setId(rs.getLong(1));
 			System.out.println("User " + u.getFirstName() + " has id " + u.getId());
-
+			System.out.println("Rgisteresd user passw " + u.getPassword());
 		} finally {
 			if (rs != null) {
 				rs.close();
@@ -91,8 +88,8 @@ public class UserDao implements IUserDAO {
 		}
 	}
 
-	public  boolean existsUser(String e_mail, String password) throws SQLException, ClassNotFoundException {
-		//Connection con = db.getConnection();
+	public boolean existsUser(String e_mail, String password) throws SQLException, ClassNotFoundException {
+		// Connection con = db.getConnection();
 		ResultSet rs = null;
 		try (PreparedStatement ps = con.prepareStatement(IS_USER_EXCIST);) {
 
@@ -120,8 +117,8 @@ public class UserDao implements IUserDAO {
 	// return result;
 	// }
 
-	public  User getUser(String e_mail) throws SQLException, ClassNotFoundException {
-	//	Connection con = db.getConnection();
+	public User getUser(String e_mail) throws SQLException, ClassNotFoundException {
+		// Connection con = db.getConnection();
 
 		ResultSet rs = null;
 		try (PreparedStatement ps = con.prepareStatement(GET_USER_BY_MAIL);) {
@@ -139,11 +136,11 @@ public class UserDao implements IUserDAO {
 			u.setEmail(rs.getString(5));
 			u.setPictureUrl(rs.getString("picture_url"));
 
-////			 TreeSet<Order> orders = od.getOrdersForUser(u.getId());
-//			 HashSet<Address> addresses = ad.getAddressOfUser(u);
-//
-//		    u.setOrders(orders);
-//			u.setAddresses(addresses);
+			//// TreeSet<Order> orders = od.getOrdersForUser(u.getId());
+			// HashSet<Address> addresses = ad.getAddressOfUser(u);
+			//
+			// u.setOrders(orders);
+			// u.setAddresses(addresses);
 
 			return u;
 		} finally {
@@ -153,12 +150,14 @@ public class UserDao implements IUserDAO {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.dominos.model.db.IUserDAO#updateUser(com.dominos.model.user.User)
 	 */
 	@Override
 	public boolean updateUser(User user) throws SQLException {
-		//Connection con = db.getConnection();
+		// Connection con = db.getConnection();
 
 		try (PreparedStatement stmt = con.prepareStatement(UPDATE_USER);) {
 			stmt.setString(1, user.getFirstName());
@@ -172,12 +171,14 @@ public class UserDao implements IUserDAO {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.dominos.model.db.IUserDAO#getUserByID(long)
 	 */
 	@Override
 	public User getUserByID(long id) throws SQLException, ClassNotFoundException {
-	//	Connection con = db.getConnection();
+		// Connection con = db.getConnection();
 
 		ResultSet rs = null;
 
@@ -197,7 +198,7 @@ public class UserDao implements IUserDAO {
 			TreeSet<Order> orders = od.getOrdersForUser(u.getId());
 			HashSet<Address> addresses = ad.getAddressOfUser(u);
 			u.setAddresses(addresses);
-		    u.setOrders(orders);
+			u.setOrders(orders);
 			return u;
 		} finally {
 			if (rs != null) {
