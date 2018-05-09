@@ -34,12 +34,12 @@ public class AddressDao implements IAddressDAO {
 
 	private static final String INSERT_ADDRESS_FOR_USER = "INSERT INTO address (address,user_id) \r\n"
 			+ "VALUES (?,?);";
-	// insert address for user
 
 	private static final String GET_ADDRESS_BY_ID = "SELECT * FROM dominos.address where address_id = ?;";
 
 	private static final String DELETE_ADDRESS = "DELETE FROM address where user_id=? AND address_id=?";
-	// private static AddressDao instance = null;
+	private static final String IS_ADDRESS_EXCIST = "SELECT count(*) as count FROM address WHERE address = ?";
+
 
 	@Autowired
 	private Connection con;
@@ -176,6 +176,23 @@ public class AddressDao implements IAddressDAO {
 
 		}
 
+	}
+	
+	public boolean hasSuchAddress(String address) throws SQLException, ClassNotFoundException {
+		// Connection con = db.getConnection();
+		ResultSet rs = null;
+		try (PreparedStatement ps = con.prepareStatement(IS_ADDRESS_EXCIST);) {
+
+			ps.setString(1,address);
+			
+			rs = ps.executeQuery();
+			rs.next();
+			return rs.getInt("count") > 0;
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+		}
 	}
 
 }

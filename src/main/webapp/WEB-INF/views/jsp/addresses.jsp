@@ -1,5 +1,6 @@
 <%@page import="java.util.Set"%>
 <jsp:include page="header.jsp"></jsp:include>
+<%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core'%>
  <link rel="stylesheet" href="css/addrStyle.css">
 
 <!DOCTYPE html>
@@ -9,7 +10,16 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
+<style>
+.nameField {
+	border: 1px solid red;
+}
 
+.errorField {
+	color: solid red;
+	background-color: red;
+}
+</style>
 <body>
 
 <script>
@@ -49,7 +59,11 @@
           
           
         </div>
-       
+        <bt>
+       <c:if test="${not empty error}">
+								<p class="errorField">${error}</p>
+
+							</c:if>
         <input type="submit" value="Add address" class="btn">
       </form>
       
