@@ -126,7 +126,7 @@ public class CreatePizzaController {
 			model.addAttribute("stringSupplements", stringSupplements);
 			dao.addNewCustomPizza(newPizza);
 			
-		} catch (InvocationTargetException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return "redirect:index.html";
 		}
@@ -155,13 +155,16 @@ public class CreatePizzaController {
 			model.addAttribute("order", order);
 			model.addAttribute("user", user);
 			
-		} catch (ProductException e) {
-			e.printStackTrace();
-			return "error";
-		}
+		} 
+		
 		catch (NumberFormatException e) {
 			e.printStackTrace();
 			return "create";
+		}
+		
+		catch (Exception e) {
+			e.printStackTrace();
+			return "error";
 		}
 		return "redirect:cart";
 	}

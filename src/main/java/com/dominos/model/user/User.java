@@ -24,21 +24,9 @@ public class User {
 	private Set<Order> orders;
 	private Set<Address>addresses;
 
-//	public User(long id, String firstName,String lastName, String password, String email, String pictureUrl) {
-//		this(firstName,lastName, password, email, pictureUrl);
-//		this.id = id;
-//	}
-//	public User(String firstName,String lastName, String password, String email, String pictureUrl) {
-//		this.firstName = firstName;
-//		this.lastName = lastName;
-//		this.password = password;
-//		this.email = email;
-//		this.pictureUrl = pictureUrl;
-//	}
-	
-	
 	public User() {
 		this.orders = new HashSet<Order>();
+		this.addresses=new HashSet<Address>();
 	}
 
 	@Override
@@ -127,5 +115,7 @@ public class User {
 	public void addOrder(Order order) {
 		this.orders.add(order);
 	}
-	
+	public void addAddress(Address address) {
+		this.addresses.add(address);
+	}
 }

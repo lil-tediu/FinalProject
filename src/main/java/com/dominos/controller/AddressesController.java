@@ -48,13 +48,13 @@ public class AddressesController {
 		try {
 			User u = (User) s.getAttribute("loggedUser");
 			addresses = ad.getAddressOfUser(u);
-		} catch (ClassNotFoundException | SQLException e) {
+			model.addAttribute("addresses", addresses);
+			return "viewaddresses";
+		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";
 
 		}
-		model.addAttribute("addresses", addresses);
-		return "viewaddresses";
 	}
 
 	@RequestMapping(value = "viewaddresses", method = RequestMethod.POST)
@@ -103,7 +103,7 @@ public class AddressesController {
 			adr.append(" ,");
 			adr.append(zip);
 			String address = adr.toString();
-			if (ad.hasSuchAddress(address)) {
+			if (ad.hasSuchAddress(address, loggedUser.getId())) {
 				String message = "Sorry, this address already exist";
 				map.put("error", message);
 				return "addresses";
@@ -111,12 +111,12 @@ public class AddressesController {
 			readyAddress.setAddress(address);
 			readyAddress.setUser(loggedUser);
 			ad.insertAddressForUser(readyAddress);
+			return "redirect:viewaddresses";
 			}
-		} catch (SQLException| ClassNotFoundException e) {
+		} catch (Exception e) {
 
 			e.printStackTrace();
 			return "error";
 		} 
-		return "redirect:viewaddresses";
 	}
 }

@@ -18,7 +18,7 @@ public interface IAddressDAO {
 	Address getAddresById(long id);
 
 	void deleteAddress(long userId, long addressId);
-	boolean hasSuchAddress(String address) throws SQLException, ClassNotFoundException;
+	boolean hasSuchAddress(String address,long userId) throws SQLException, ClassNotFoundException;
 
 
 }

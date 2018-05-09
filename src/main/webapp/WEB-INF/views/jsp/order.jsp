@@ -105,7 +105,7 @@
 			<div class="pictures">
 				<img src="../${entry.key.pictureUrl }" alt="PIZZA" class="img-responsive">
 			</div>
-			<p class="price">Prize for one: ${entry.key.price}0 lv
+			<p class="price">Prize for one: ${entry.key.price} lv
 			<p>
 			<p>Quantity: ${entry.value}</p>
 		</div>

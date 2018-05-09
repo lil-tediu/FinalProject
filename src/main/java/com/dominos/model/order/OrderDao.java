@@ -68,7 +68,6 @@ public class OrderDao implements IOrderDAO {
 
 	@Override
 	public TreeSet<Order> getOrdersForUser(long user_id) throws ClassNotFoundException, SQLException {
-		// Connection con = DBconnection.getConnection();
 		ResultSet rs = null;
 
 		try (PreparedStatement ps = con.prepareStatement(GET_ALL_USER_ORDERS);) {
@@ -89,12 +88,10 @@ public class OrderDao implements IOrderDAO {
 				LocalDateTime date = rs.getTimestamp("date").toLocalDateTime();
 				Address a = new Address();
 				a.setAddress(rs.getString("a.address"));
-				// a.setUser(user);
 				order = new Order();
 				order.setId(rs.getLong("order_id"));
 
 				order.setDatetime(date);
-				// order.setUser(user);
 				order.setProducts(products);
 				order.setPrice(rs.getFloat("price"));
 				order.setAddres(a);
@@ -117,7 +114,6 @@ public class OrderDao implements IOrderDAO {
 	 */
 	@Override
 	public HashMap<Product, Integer> getProductsForOrder(long orderId) throws SQLException {
-		// Connection con = DBconnection.getConnection();
 		ResultSet rs = null;
 
 		try (PreparedStatement ps = con.prepareStatement(GET_PRODUCTS_OF_ORDER_BY_ID);) {
@@ -179,7 +175,6 @@ public class OrderDao implements IOrderDAO {
 	 */
 	@Override
 	public void insertProductsFromOrder(long orderId, HashMap<Product, Integer> cart) throws SQLException {
-		// Connection con = DBconnection.getConnection();
 
 		for (Entry<Product, Integer> entry : cart.entrySet()) {
 			Product product = entry.getKey();
@@ -227,14 +222,12 @@ public class OrderDao implements IOrderDAO {
 				
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			if (rs != null) {
 				try {
 					rs.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

@@ -30,8 +30,6 @@ public class HelloController {
 	@Autowired
 	private UserDao dao;
 
-	@Autowired
-	private IAddressDAO ad;
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String hello(Model model, HttpSession s) {
@@ -53,7 +51,7 @@ public class HelloController {
 	}
 
 	@RequestMapping(value = "/index", method = RequestMethod.POST)
-	public String register(@ModelAttribute @Valid User user, BindingResult result, HttpSession s,ModelMap map) {
+	public String register(@ModelAttribute @Valid User user, BindingResult result, HttpSession s, ModelMap map) {
 		try {
 
 			if (result.hasFieldErrors()) {
@@ -62,10 +60,9 @@ public class HelloController {
 
 			} else {
 				if (dao.hasSuchEmail(user.getEmail())) {
-				   
-					 String message="Sorry, this username already exist";   
-					 map.put("error",message);
-					 return "index";
+					String message = "Sorry, this username already exist";
+					map.put("error", message);
+					return "index";
 				} else {
 					dao.register(user);
 					s.setMaxInactiveInterval(120);
@@ -74,119 +71,85 @@ public class HelloController {
 
 				}
 			}
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-			 
-//				 return "index";
+			return "error";
 		}
-		 String message="Sorry, this username already exist";   
-			 map.put("error",message);
-			 
-			 return "index";
+
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(Model model, HttpSession s, @ModelAttribute @Valid User user, BindingResult result,ModelMap map) {
+	public String login(Model model, HttpSession s, @ModelAttribute @Valid User user, BindingResult result,
+			ModelMap map) {
 		try {
 
 			if (result.hasFieldErrors()) {
 				result.addError(new ObjectError("err", "Invalid input"));
 				return "index1";
 			}
-			
+
 			System.out.println(user.getPassword());
 			if (dao.existsUser(user.getEmail(), user.getPassword())) {
-				
+
 				user = dao.getUser(user.getEmail());
-				// HttpSession session = request.getSession();
 				s.setMaxInactiveInterval(120);
 				s.setAttribute("loggedUser", user);
 				return "redirect:drinks";
 			}
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";
 		}
-		String errormsg="Invalid username or password";
-	    map.put("errMsg1",errormsg);
-	    System.out.println(errormsg);
-		//result.addError(new ObjectError("err", "Invalid input"));
+		String errormsg = "Invalid username or password";
+		map.put("errMsg1", errormsg);
 		return "index1";
 	}
 
-
 	@RequestMapping(value = "/updateProfile", method = RequestMethod.POST)
-	private String doUpdateProfile(@ModelAttribute User registeredUser,HttpSession s,HttpServletRequest request,ModelMap map) {
+	private String doUpdateProfile(@ModelAttribute User registeredUser, HttpSession s, HttpServletRequest request,
+			ModelMap map) {
 		if (s == null || s.getAttribute("loggedUser") == null) {
 			return "redirect:/index";
 		}
 		User loggedUser = (User) s.getAttribute("loggedUser");
-
-
-	//	System.out.println(((User) s.getAttribute("loggedUser")).getId());
-		
-		registeredUser.setId(((User) s.getAttribute("loggedUser")).getId());
-		
-		String fName=request.getParameter("firstname");
-	//	System.out.println(fName);
+		registeredUser.setId(loggedUser.getId());
+		String fName = request.getParameter("firstname");
 		registeredUser.setFirstName(fName);
-		
-		String lName=request.getParameter("lastname");
-//		System.out.println(lName);
+		String lName = request.getParameter("lastname");
 		registeredUser.setLastName(lName);
-		
-	//	String mail=request.getParameter("email");
-	//	System.out.println(mail);
 		registeredUser.setEmail(loggedUser.getEmail());
 
-		String pass1=request.getParameter("password");
-		String pass2=request.getParameter("password2");
-		
-		if(!pass1.equals(pass2)) {
-			String errormsg="Password does not match";
-		    map.put("error",errormsg);
+		String pass1 = request.getParameter("password");
+		String pass2 = request.getParameter("password2");
+
+		if (!pass1.equals(pass2)) {
+			String errormsg = "Password does not match";
+			map.put("error", errormsg);
 			return "updateProfile";
+		} else {
+			registeredUser.setPassword(pass1);
+			try {
+				dao.updateUser(registeredUser);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "error";
+			}
+			s.setAttribute("loggedUser", registeredUser);
+			return "succesfullUpdate";
 
-		}else {
-		
-		registeredUser.setPassword(pass1);
-	//	System.out.println(pass1);
-		try {
-			dao.updateUser(registeredUser);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return "error";
-
-			
-		}
-
-		s.setAttribute("loggedUser", registeredUser);
-
-		return "succesfullUpdate";
-		
 		}
 	}
 
 	@RequestMapping(value = "/updateProfile", method = RequestMethod.GET)
-	private String updateProfile(Model model, HttpSession s,HttpServletRequest request) {
+	private String updateProfile(Model model, HttpSession s, HttpServletRequest request) {
 
 		if (s == null || s.getAttribute("loggedUser") == null) {
 			return "redirect:/index";
 		}
-
 		User u = new User();
-//		User loggedUser = (User) s.getAttribute("loggedUser");
-//		if (loggedUser != null) {
-//			System.out.println("User exist");
-//		} else {
-//			System.out.println("User does not exist");
-//		}
 		User loggedUser = (User) s.getAttribute("loggedUser");
 		model.addAttribute("user", loggedUser);
 		model.addAttribute("updatedUser", u);
-		request.setAttribute("equallPassword", null);
-
 		return "updateProfile";
 	}
 

@@ -73,7 +73,7 @@ public class CartController {
 				float price = (float) Order.calculatePriceForCart(order.getProducts());
 				model.addAttribute("order", order);
 				model.addAttribute("price", price);
-			} catch (ProductException | URLException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 				return "error";
 			}
@@ -89,7 +89,7 @@ public class CartController {
 			try {
 				Set<Address> addresses = adao.getAddressOfUser(user);
 				model.addAttribute("adresses", addresses);
-			} catch (ClassNotFoundException | SQLException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 				return "error";
 			}
@@ -115,7 +115,7 @@ public class CartController {
 				odao.insertOrderForUser(order);
 				odao.insertProductsFromOrder(order.getId(), order.getProducts());
 				
-			} catch (SQLException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 				return "error";
 			}
@@ -141,7 +141,7 @@ public class CartController {
 						ordersAndAddresses.put(order, order.getAddres().getAddress());
 				}
 				model.addAttribute("ordersAndAddresses", ordersAndAddresses);
-			} catch (ClassNotFoundException | SQLException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 				return "error";
 			}
@@ -171,7 +171,7 @@ public class CartController {
 				else {
 					return "redirect:../index";
 				}
-			} catch (ClassNotFoundException | SQLException | AddressException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 				return "error";
 			}
