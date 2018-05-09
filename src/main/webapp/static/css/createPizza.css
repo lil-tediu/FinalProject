@@ -1,0 +1,41 @@
+@charset "UTF-8";
+
+
+
+
+td {
+  padding: 0px 50px;
+}
+
+.header {
+	 font-weight: bold;
+	 color: 	#FF6347;
+	line-height: 1.3;
+	 font-size: 130%;
+	 text-decoration: underline;
+}
+.checkboxes{
+	text-color: 	#FF6347;
+}
+
+.button{
+	margin-left:50%;
+	background-color:green;
+	height:40px;
+	width:150px;
+	color : white;
+}
+
+.cook {
+	position:absolute;
+	display:table-col;
+	vertical-align: top;
+	
+	right: 200px;
+}
+
+	.pizza {
+		position:reltive;
+		width:50%;
+		height:50%;
+	}
