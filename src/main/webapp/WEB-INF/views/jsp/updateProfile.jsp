@@ -31,13 +31,13 @@
 
 
 							<label for="fname">First Name</label> <input type="text"
-								id="fname" name="firstname" placeholder="Ivan" required>
+								id="fname" name="firstname" placeholder="Ivan" pattern="([A-z\s]){2,}" required>
 
 							<label for="lname">Last Name</label> <input type="text"
-								id="lname" name="lastname" placeholder="Petrov" required>
+								id="lname" name="lastname" placeholder="Petrov" pattern="([A-z\s]){2,}" required>
 
 							<label for="email">E-mail</label> <input type="text" id="email"
-								name="email" placeholder="ivanpetrov@gmail.com" required>
+								name="email" placeholder="ivanpetrov@gmail.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
 
 							<label for="password">Password</label> <input type="password"
 								id="password" name="password" required> <br> <br>
