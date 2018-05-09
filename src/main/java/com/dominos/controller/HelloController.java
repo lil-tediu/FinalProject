@@ -144,7 +144,6 @@ public class HelloController {
 		String pass2=request.getParameter("password2");
 		
 		if(!pass1.equals(pass2)) {
-
 			return "updateProfile";
 
 		}else {
@@ -181,6 +180,8 @@ public class HelloController {
 //		} else {
 //			System.out.println("User does not exist");
 //		}
+		User loggedUser = (User) s.getAttribute("loggedUser");
+		model.addAttribute("user", loggedUser);
 		model.addAttribute("updatedUser", u);
 		request.setAttribute("equallPassword", null);
 

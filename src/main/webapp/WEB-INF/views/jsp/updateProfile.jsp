@@ -31,13 +31,13 @@
 
 
 							<label for="fname">First Name</label> <input type="text"
-								id="fname" name="firstname" placeholder="Ivan" required>
+								id="fname" name="firstname" placeholder="${user.firstName }" required>
 
 							<label for="lname">Last Name</label> <input type="text"
-								id="lname" name="lastname" placeholder="Petrov" required>
+								id="lname" name="lastname" placeholder="${user.lastName }" required>
 
 							<label for="email">E-mail</label> <input type="text" id="email"
-								name="email" placeholder="ivanpetrov@gmail.com" required>
+								name="email" placeholder="${user.email }" required>
 
 							<label for="password">Password</label> <input type="password"
 								id="password" name="password" required> <br> <br>
