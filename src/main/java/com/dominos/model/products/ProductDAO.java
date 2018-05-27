@@ -47,30 +47,9 @@ public class ProductDAO implements IProductDAO {
 	
 	@Autowired
 	private DBConnection db;
-	
-//	public ProductDAO() throws ClassNotFoundException, SQLException {
-//		this.products = new HashSet<Product>();
-//		this.connection = db.getConnection();
-//	}
 
-//	public static ProductDAO getInstance() throws ClassNotFoundException, SQLException {
-//		if (ProductDAO.instance == null) {
-//			ProductDAO.instance = new ProductDAO();
-//		}
-//		return instance;
-//	}
-
-	/* (non-Javadoc)
-	 * @see com.dominos.model.products.IProductDAO#getProductById(long)
-	 */
 	@Override
 	public Product getProductById(long id) throws ProductException, URLException {
-		// for (Product product : this.products) {
-		// if (product.getId() == id) {
-		// return product;
-		// }
-		// }
-
 		try {
 			PreparedStatement st = this.connection.prepareStatement(GET_PRODUCT_BY_ID_SQL);
 			st.setLong(1, id);
@@ -88,13 +67,7 @@ public class ProductDAO implements IProductDAO {
 		throw new ProductException("Product with this id not found!");
 	}
 
-//	public void addNewProduct(Product product) {
-//		this.products.add(product);
-//	}
 
-	/* (non-Javadoc)
-	 * @see com.dominos.model.products.IProductDAO#getAllDrinks()
-	 */
 	@Override
 	public Set<Drink> getAllDrinks() throws URLException, ProductException {
 		Statement st;
@@ -114,9 +87,6 @@ public class ProductDAO implements IProductDAO {
 		throw new ProductException("No drinks");
 	}
 
-	/* (non-Javadoc)
-	 * @see com.dominos.model.products.IProductDAO#getAllSauces()
-	 */
 	@Override
 	public Set<Sauce> getAllSauces() throws URLException, ProductException {
 		Statement st;
@@ -132,15 +102,10 @@ public class ProductDAO implements IProductDAO {
 				return products;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		throw new ProductException("No Sauces");
 	}
-
-	/* (non-Javadoc)
-	 * @see com.dominos.model.products.IProductDAO#getAllPizzas()
-	 */
 	@Override
 	public Set<Pizza> getAllPizzas() throws URLException, ProductException {
 		Statement st;
@@ -236,54 +201,4 @@ public class ProductDAO implements IProductDAO {
 		}
 		
 	}
-	
-	
-	
-		
-//	public CustomPizza createCustomPizza() throws URLException {
-//		return new CustomPizza("img/custmPizza");
-//	}
-	
-	
-	
-	// public CustomPizza createPizza() throws URLException {
-	// CustomPizza pizza = new CustomPizza("");
-	//
-	// return pizza;
-	// }
-
-	// public Set<Product> getProducts() {
-	// Set<Product> products = Collections.unmodifiableSet(this.products);
-	// return products;
-	// }
-	//
-	// public Set<Pizza> getAllPizzas() {
-	// Set<Pizza> pizzas = new HashSet<Pizza>();
-	// for (Product x : this.getProducts()) {
-	// if (x instanceof Pizza ) {
-	// pizzas.add((Pizza) x);
-	// }
-	// }
-	// return pizzas;
-	// }
-	//
-	// public Set<Drink> getAllDrinks() {
-	// Set<Drink> drinks = new HashSet<Drink>();
-	// for (Product x : this.getProducts()) {
-	// if (x instanceof Drink ) {
-	// drinks.add((Drink) x);
-	// }
-	// }
-	// return drinks;
-	// }
-	//
-	// public Set<Sauce> getAllSauces() {
-	// Set<Sauce> sauces = new HashSet<Sauce>();
-	// for (Product x : this.getProducts()) {
-	// if (x instanceof Sauce ) {
-	// sauces.add((Sauce) x);
-	// }
-	// }
-	// return sauces;
-	// }
 }

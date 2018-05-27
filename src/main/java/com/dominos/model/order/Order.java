@@ -28,24 +28,6 @@ public class Order {
 		this.datetime = LocalDateTime.now();
 	}
 	
-	
-	
-//	public Order(LocalDateTime datetime, User user, HashMap<String, Integer> products,float price,Address address,boolean isDelivered) {
-//		this.datetime = datetime;
-//		this.user = user;
-//		this.products = products;
-//		this.price=price;
-//		this.addres=address;
-//		this.isDelivered=isDelivered;
-//		
-//	}
-//	
-//	public Order(long id, LocalDateTime datetime, User user, HashMap<String, Integer> products,float price,Address address,boolean isDelivered) {
-//		this(datetime,user,products,price,address,isDelivered);
-//		this.id = id;
-//		
-//	}
-
 	public long getId() {
 		return id;
 	}

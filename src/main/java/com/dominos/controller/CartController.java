@@ -73,8 +73,7 @@ public class CartController {
 				float price = (float) Order.calculatePriceForCart(order.getProducts());
 				model.addAttribute("order", order);
 				model.addAttribute("price", price);
-			} catch (ProductException | URLException e) {
-				// TODO Auto-generated catch block
+			} catch (Exception e) {
 				e.printStackTrace();
 				return "error";
 			}
@@ -90,8 +89,7 @@ public class CartController {
 			try {
 				Set<Address> addresses = adao.getAddressOfUser(user);
 				model.addAttribute("adresses", addresses);
-			} catch (ClassNotFoundException | SQLException e) {
-				// TODO Auto-generated catch block
+			} catch (Exception e) {
 				e.printStackTrace();
 				return "error";
 			}
@@ -117,8 +115,7 @@ public class CartController {
 				odao.insertOrderForUser(order);
 				odao.insertProductsFromOrder(order.getId(), order.getProducts());
 				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+			} catch (Exception e) {
 				e.printStackTrace();
 				return "error";
 			}
@@ -144,8 +141,7 @@ public class CartController {
 						ordersAndAddresses.put(order, order.getAddres().getAddress());
 				}
 				model.addAttribute("ordersAndAddresses", ordersAndAddresses);
-			} catch (ClassNotFoundException | SQLException e) {
-				// TODO Auto-generated catch block
+			} catch (Exception e) {
 				e.printStackTrace();
 				return "error";
 			}
@@ -166,13 +162,16 @@ public class CartController {
 					Order order = odao.getOrderById(id);
 					order.setProducts(odao.getProductsForOrder(order.getId()));
 					Order.calculatePriceForCart(order.getProducts());
+					String date = order.getDatetime().toString();
+					date = date.replace('T', ' ');
+					model.addAttribute("date", date);
 					model.addAttribute(order);
 					return "order";
 				}
 				else {
 					return "redirect:../index";
 				}
-			} catch (ClassNotFoundException | SQLException | AddressException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 				return "error";
 			}

@@ -1,0 +1,8 @@
+.nameField {
+	border: 1px solid red;
+}
+
+.errorField {
+	color: solid red;
+	background-color: red;
+}

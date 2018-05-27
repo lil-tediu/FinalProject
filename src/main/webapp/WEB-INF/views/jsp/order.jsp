@@ -94,7 +94,8 @@
 
 
 
-<h1 class="header" align="center">YOUR ORDER FROM : ${order.datetime} </h1>
+
+<h1 class="header" align="center">YOUR ORDER FROM : ${date} </h1>
 <h2 class="header" align="center">Price: ${order.price}0 lv</h2>
 
 <div class=products>
@@ -104,7 +105,7 @@
 			<div class="pictures">
 				<img src="../${entry.key.pictureUrl }" alt="PIZZA" class="img-responsive">
 			</div>
-			<p class="price">Prize for one: ${entry.key.price}0 lv
+			<p class="price">Prize for one: ${entry.key.price} lv
 			<p>
 			<p>Quantity: ${entry.value}</p>
 		</div>
