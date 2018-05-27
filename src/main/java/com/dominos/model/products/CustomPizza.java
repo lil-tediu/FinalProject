@@ -106,7 +106,6 @@ public class CustomPizza extends Product {
 			}
 		}
 	}
-
 	public Set<String> getStringSupplements() throws InvocationTargetException {
 		return this.stringSupplements;
 	}
